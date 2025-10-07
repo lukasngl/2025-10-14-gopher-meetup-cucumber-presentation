@@ -1,0 +1,56 @@
+# run with treefmt --allow-missing-formatter
+
+[global]
+excludes = []
+
+### Misc
+
+[formatter.keep-sorted]
+command = "keep-sorted"
+includes = ["*"]
+
+[formatter.dprint]
+command = "dprint"
+options = ["fmt"]
+includes = ["*.yaml", "*.yml", "*.js", "*.json", "*.md", "*.toml"]
+
+### typst
+
+[formatter.typstyle]
+command = "typstyle"
+options = ["-i"]
+includes = ["*.typ"]
+
+### Justfile
+
+[formatter.justfile]
+command = "./hack/single_file_formatter.sh"
+options = ["just", "--unstable", "--fmt", "--justfile"]
+includes = ["justfile"]
+
+### Go
+
+[formatter.gofumpt]
+command = "gofumpt"
+options = ["-w"]
+includes = ["*.go"]
+priority = 1 # run after gci
+
+[formatter.gci]
+command = "gci"
+options = ["write"]
+includes = ["*.go"]
+priority = 0
+
+[formatter.goimports]
+command = "goimports"
+options = ["-w"]
+includes = ["*.go"]
+priority = 2 # run after gofumpt
+
+### Gherkin
+
+[formatter.ghokin]
+command = "./hack/single_file_formatter.sh"
+options = ["ghokin", "fmt", "replace", "--"]
+includes = ["*.feature"]
