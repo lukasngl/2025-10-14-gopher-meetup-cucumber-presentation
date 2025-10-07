@@ -1,0 +1,35 @@
+name: "build"
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: cache nix-shell
+        run: nix develop . --command true
+      - name: build handout
+        run: nix develop . --command just build-handout
+      - name: create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: latest
+          files: slides/handout.pdf
+          draft: false
+          prerelease: false
+          body: |
+            Automated release from commit ${{ github.sha }}
+
+            Download the latest presentation handout below.

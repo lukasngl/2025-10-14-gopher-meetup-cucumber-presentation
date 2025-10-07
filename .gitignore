@@ -1,0 +1,5 @@
+*.pdf
+*.pdfpc
+.claude
+.direnv/
+.envrc
