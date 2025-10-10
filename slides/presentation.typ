@@ -25,44 +25,105 @@
 #slide[
   == Outline
   #pdfpc.speaker-note[```md
-    @cwbudde: Hier können wir speaker notes nach lust und laune reinhauen.
+    Structure: Problem → Solution → Payoff with recurring characters (Developer, Stakeholder, Colleague)
   ```]
 
-  #set text(size: 12pt)
+  #set text(size: 11pt)
   #columns(2)[
 
-    - Szenario einführen: Wir sind eine Bank
-      - (Disclaimer: nicht unsere Domain, aber alle kennen es)
-      - Alice und Bob können sich Geld überweisen
-      - Nutzer können überweisen etc
-      - TODO: rahmen für business logik an präsentation anpassen
-    - Kurze Motivation: Warum testen?
-      - Z.b. Geldverlust, Reputationsverlust, regulatorische Anforderungen
-    - Story: von Go test zu cucumber
-      1. einfacher Go test, noch alles übersichtlich
-      2. mehrere Tests, setup code wird dupliziert
-      3. identifizieren von Given/When/Then blöcken
-      4. extrahieren in funktionen
-      5. Transition zu cucumber
-    - Perspektive: Wann und wofür macht sowas Sinn?
-      - Einordnung:
-        - Test Pyramide?: #strike()[Unit], Integration, E2E
-        - Fokus auf business logik, weniger technische details
-      - Steak-Holder (pun intended) einführen: Kann plötzlich mitreden
-        - BDD anreißen/einführen?
-      - Dokumentation
-        - Tests sind lebende Dokumente
-        - Anforderungen werden automatisch getestet und liegen beim Code
-          - Kein "schau mal bei Confluence oder Jira, warum das so ist..."
-        - veraltet nicht
-    - Vorsprung durch Technik: Wie nutze ich cucumber, godog
-      - godog schritte aufbau
-      - Table Driven Tests
-      - Szenario Outlines
-      - Claudia Code??
-    - Praxis Tipp: Test Suite für handler/integrations tests.
+    *1. Introduction (3-5 min)*
+    - Who we are
+    - Hook: "Testing is important, but who actually reads the tests?"
+
+    *2. The Problem - Act by Act (15-20 min)*
+    - Setting the scene
+      - New Messvorlagen feature request
+      - Specification lives in Jira
+        - Visual Aid: Show a broken jira page; and a fixed on the next. (Oh broken, let's reload; there we go)
+      - Developer writes Go test
+
+    - Developer's pain
+      - Show convoluted Go test code
+      - First: whole test (wall of code, overwhelming)
+      - Then: break into chunks to analyze
+      - Lots of setup, unclear structure
+      - Business logic buried in technical details
+
+    - Stakeholder's pain
+      - "Can you explain what this test does?"
+      - Show Go code rendered as Egyptian hieroglyphs (𓀀 𓀁 𓀂 𓀃 𓀄...)
+      - "This is hieroglyphs to me!"
+      - Can't verify if requirements are met
+
+    - Colleague's pain
+      - Makes a subtle logic change to the code
+      - Updates the Go tests (they pass ✅)
+      - Forgets to update Jira/Confluence spec
+      - Spec and implementation have silently drifted apart
+      - No one notices until much later...
+
+    *3. The Refactoring Journey (10-15 min)*
+    - Step 1: Identify structure
+      - Highlight Given/When/Then blocks in the messy test
+      - User story was already in the godoc!
+
+    - Step 2: Extract functions
+      - Refactor into named functions
+      - Code becomes more readable
+
+    - Step 3: Transform to Cucumber
+      - Show 1:1 mapping from functions to steps
+      - User story from godoc → feature file
+
+    - Developer interlude
+      - "But table-driven tests are more convenient!"
+      - Show verbose Go struct list
+
+    - Counter: Scenario Outline
+      - Same convenience, readable syntax
+      - Show cucumber table syntax
+
+    *4. The Resolution (5 min)*
+    - Stakeholder's relief
+      - "I can read this!"
+      - Spec can be published to wiki
+      - Can participate in review
+
+    - Colleague's relief
+      - "Now when I change the logic, the test fails until I update the spec"
+      - Documentation literally cannot be outdated
+      - Living documentation guarantee
+
+    - Developer's relief
+      - Less boilerplate
+      - Clearer intent
+      - Better collaboration
+
+    *5. Technical Deep Dive (5-10 min)*
+    - godog step definitions
+    - Running tests
+    - Integration with test suite
+    - Quick tips & tricks
+
+    *6. Positioning & Best Practices (5 min)*
+    - Test pyramid: where does this fit?
+      - #strike()[Unit], Integration, E2E
+      - Focus on business logic, less technical details
+    - When to use BDD/Cucumber
+      - Complex business logic
+      - Stakeholder collaboration needed
+    - When NOT to use it
+      - Unit tests
+      - Simple CRUD operations
+
+    *7. Conclusion (2-3 min)*
+    - Recap benefits: Living docs, collaboration, clarity
+    - Links & resources
+      - #link("https://cucumber.io/docs/bdd/")
+    - Q&A
   ]
 ]
+
 ]
 
 #slides
