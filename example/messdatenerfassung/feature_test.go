@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	"example.invalid/testsuite"
-
 	"github.com/cucumber/godog"
 )
 

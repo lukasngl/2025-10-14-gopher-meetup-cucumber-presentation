@@ -8,7 +8,6 @@ import (
 
 	"example.invalid/domain/template"
 	"example.invalid/domain/unit"
-
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 

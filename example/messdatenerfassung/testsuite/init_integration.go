@@ -9,7 +9,6 @@ import (
 	"example.invalid/adapter/sql/measurementrepo"
 	"example.invalid/adapter/sql/templaterepo"
 	"example.invalid/app"
-
 	"github.com/cucumber/godog"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/testcontainers/testcontainers-go"

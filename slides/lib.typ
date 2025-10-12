@@ -1,5 +1,8 @@
 #import "@preview/polylux:0.4.0": *
 #import "@preview/tiaoma:0.3.0"
+#import "@preview/pinit:0.2.2": *
+#import "lib/gherkin-syntax/lib.typ": cucumber-syntax
+#import "lib/monochrome-theme/lib.typ": monochrome-theme
 
 #let meko_green = rgb(0, 136, 133)
 #let meko_grey = rgb("#4b4c53")
@@ -25,7 +28,16 @@
     font: "Fira Sans",
     size: 18pt,
   )
-  show raw: set text(font: "Fira Code", size: 20pt)
+
+  // Setup code highlighting
+  show raw: set text(font: "Fira Code", size: 16pt)
+  show: cucumber-syntax
+  show raw: it => {
+    show regex("pin\d+"): it => pin(eval(it.text.slice(3)))
+    it
+  }
+
+  // show: monochrome-theme
 
   show emph: set text(fill: meko_green)
 
@@ -41,6 +53,13 @@
 
   body
 }
+
+#let content-slide(title, body) = slide[
+  #align(horizon)[
+    === #title
+    #body
+  ]
+]
 
 #let title-slide(authors: [], title: [], extra: [], url: none) = slide[
   #grid(
@@ -85,3 +104,41 @@
     },
   )
 ]
+
+#let section-slide(title, body) = slide[
+  #show heading.where(level: 2): set text(size: 30pt)
+  #show heading.where(level: 2): set block(spacing: 2em)
+  #toolbox.register-section(title)
+  #align(center + horizon)[
+    == #title
+
+    #body
+  ]
+]
+
+#let item-by-item(start: 1, mode: hide, body) = {
+  let is-item(it) = (
+    type(it) == content
+      and it.func()
+        in (
+          list.item,
+          enum.item,
+          terms.item,
+        )
+  )
+
+  let children = if type(body) == content and body.has("children") {
+    body.children
+  } else {
+    body
+  }
+
+  let children = children.filter(is-item)
+
+  for i in range(children.len()) {
+    only(
+      start + i,
+      list(..for j in range(i + 1) { (children.at(j).body,) }),
+    )
+  }
+}

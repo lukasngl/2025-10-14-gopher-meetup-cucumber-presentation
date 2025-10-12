@@ -9,7 +9,6 @@ import (
 
 	"example.invalid/domain/measurement"
 	"example.invalid/domain/template"
-
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -90,7 +89,6 @@ func (r *MeasurementRepository) Create(ctx context.Context, meas measurement.Mea
 		finishedAt,
 		valuesJSON,
 	).Scan(&id)
-
 	if err != nil {
 		return 0, fmt.Errorf("failed to create measurement: %w", err)
 	}

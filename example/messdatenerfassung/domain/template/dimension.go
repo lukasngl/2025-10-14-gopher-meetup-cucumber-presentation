@@ -12,7 +12,7 @@ type Label struct{ string }
 
 // NewLabel creates a new Label from a string.
 func NewLabel(s string) (Label, error) {
-	//TODO: validate label (e.g., non-empty, max length)
+	// TODO: validate label (e.g., non-empty, max length)
 	return Label{s}, nil
 }
 
@@ -25,11 +25,11 @@ func (l Label) String() string {
 // It defines what needs to be measured (Label), the measurement unit,
 // the nominal value, and acceptable tolerance range (Lower to Upper).
 type Dimension struct {
-	Label   Label      // Name of the dimension (e.g., "Durchmesser")
-	Unit    unit.Unit  // Unit of measurement (e.g., "mm")
-	Nominal float64    // Target/nominal value
-	Upper   float64    // Upper tolerance limit (inclusive)
-	Lower   float64    // Lower tolerance limit (inclusive)
+	Label   Label     // Name of the dimension (e.g., "Durchmesser")
+	Unit    unit.Unit // Unit of measurement (e.g., "mm")
+	Nominal float64   // Target/nominal value
+	Upper   float64   // Upper tolerance limit (inclusive)
+	Lower   float64   // Lower tolerance limit (inclusive)
 }
 
 // Validate checks if the dimension has valid tolerances

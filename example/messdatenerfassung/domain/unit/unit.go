@@ -6,7 +6,7 @@ type Unit struct{ string }
 
 // NewUnit creates a new Unit from a string.
 func NewUnit(s string) (Unit, error) {
-	//TODO: validate unit (e.g., check against allowed units)
+	// TODO: validate unit (e.g., check against allowed units)
 	return Unit{s}, nil
 }
 
