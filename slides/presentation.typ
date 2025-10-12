@@ -775,6 +775,71 @@
     )
   ]
 
+  #content-slide([Alternative: Ginkgo])[
+    #set text(size: 16pt)
+
+    *Ein weiteres BDD-Framework für Go*
+
+    #v(1em)
+
+    *Was ist Ginkgo?*
+    - Reifes BDD Testing Framework für Go
+    - Fokus auf ausdrucksstarke, lesbare Tests
+    - Arbeitet mit Gomega Matcher-Library zusammen
+
+    #v(1em)
+
+    *Key Features:*
+    - Verschachtelte Test-Organisation mit `Describe`, `Context`, `When`
+    - Parallelisierung & Randomisierung von Tests
+    - Umfangreiche Setup/Teardown-Möglichkeiten
+    - Flexibel: Unit-, Integration- & Performance-Tests
+
+    #v(1.5em)
+
+    #text(size: 11pt)[
+      Quelle: #link("https://github.com/onsi/ginkgo")[github.com/onsi/ginkgo]
+    ]
+  ]
+
+  #content-slide([Ginkgo vs. Godog])[
+    #set text(size: 16pt)
+
+    *Beispiel: Ginkgo-Syntax*
+    ```go
+    Describe("Checking books out", func() {
+        When("the library has the book", func() {
+            It("lends it to the reader", func() {
+                // Test logic
+            })
+        })
+    })
+    ```
+
+    #v(1em)
+
+    *Der Unterschied:*
+
+    #grid(
+      columns: (1fr, 1fr),
+      column-gutter: 2em,
+      align(left)[
+        *Ginkgo*
+        - Code-basiertes BDD
+        - Tests in Go geschrieben
+        - Strukturiert & lesbar
+        - Für Developer
+      ],
+      align(left)[
+        *Godog*
+        - Cucumber-Style
+        - Natural Language (Gherkin)
+        - Feature-Files
+        - Für alle Stakeholder
+      ]
+    )
+  ]
+
 ]
 
 #slides
