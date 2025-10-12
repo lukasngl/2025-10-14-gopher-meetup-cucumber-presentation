@@ -190,7 +190,7 @@
 
     #v(1em)
 
-    *Was macht die Methode nochmal?*
+    *Was macht die Funktion nochmal?*
 
     500 Zeilen, 8 verschachtelte Ifs, keine Kommentare \
     Edge Cases? Das finden wir schon raus... irgendwann
@@ -603,7 +603,7 @@
     )
   ]
 
-    #content-slide([Warum überhaupt testen?])[
+  #content-slide([Warum überhaupt testen?])[
     - Ein Softwarefehler in Medizinprodukten kann Leben gefährden
     - Regulatorische Anforderungen (MDR, FDA)
       - Softwarevalidierung verpflichtend
@@ -615,6 +615,164 @@
         sondern schützen am Ende auch Menschenleben.
       ]
     ]
+  ]
+
+  #content-slide([BDD + Klassisches Testen = 💚])[
+    #set align(horizon)
+
+    *BDD und klassisches Testen schließen sich nicht aus* – \
+    sie ergänzen einander!
+
+    #v(1em)
+
+    #grid(
+      columns: (1fr, 1fr),
+      column-gutter: 2em,
+      align(left)[
+        *Vor dem Coding:*
+        - Klare, gemeinsame Definition
+        - Erwartungen für alle lesbar
+        - Missverständnisse früh erkennen
+      ],
+      align(left)[
+        *Nach dem Coding:*
+        - Automatische Verifikation
+        - Leicht validierbar
+        - Living Documentation
+      ]
+    )
+
+    #v(1.5em)
+
+    #align(center)[
+      #text(size: 0.95em, style: "italic", fill: green.darken(20%))[
+        *Gurken-Code kann Spaß machen,* \
+        wenn er für alle Beteiligten Mehrwert schafft!
+      ]
+    ]
+
+  ]
+
+  #section-slide([Appendix])[
+    #align(horizon + center)[
+      #text(size: 1.2em)[
+        Zusätzliche Informationen & Hintergründe
+      ]
+    ]
+  ]
+
+  #content-slide([Die Entstehung von BDD])[
+    #set text(size: 15pt)
+
+    *Dan North, ca. 2003-2004*
+
+    #v(0.5em)
+
+    *Das Problem:*
+    - TDD-Entwickler kämpften mit grundlegenden Fragen:
+      - Wo anfangen? Was testen? Was nicht testen?
+      - Wie viel in einem Test? Wie Tests benennen?
+
+    #v(0.5em)
+
+    *Die Entwicklung:*
+    - Entdeckung von "agiledox" → Testmethoden als lesbare Sätze
+    - Namenskonvention: Methoden beginnen mit "should"
+    - Paradigmenwechsel: Von "Tests" zu "Verhalten" (Behaviour)
+    - Entwicklung von JBehave als JUnit-Ersatz
+
+    #v(0.5em)
+
+    *Die Schlüsselerkenntnis:*
+
+    #align(center)[
+      #text(style: "italic", fill: blue.darken(20%))[
+        "Behaviour" ist nützlicher als "Test" – \
+        Requirements sind fundamentally about behavior
+      ]
+    ]
+
+    #v(0.5em)
+
+    #text(size: 11pt)[
+      Quelle: #link("https://dannorth.net/blog/introducing-bdd/")[Dan North - Introducing BDD]
+    ]
+  ]
+
+  #content-slide([Wie war das nochmal mit den Gurken?])[
+    #toolbox.side-by-side(
+      columns: (60%, 40%),
+      [
+        #v(0.5em)
+
+        *Cucumber* (das Tool)
+        - Entwickelt von *Aslak Hellesøy* \ (ursprünglich "Stories Runner" für Ruby)
+        - Suchte nach einem einprägsamen Namen
+        - Seine Verlobte schlug "Cucumber" vor
+        - Kein tiefer technischer Bezug, \ sondern kreativ & merkbar
+
+        #v(0.5em)
+      ],
+      align(horizon + center)[
+        #image("../assets/cucumber.jpg", width: 100%)
+      ]
+    )
+  ]
+
+  #content-slide([Und was ist "Gherkin"?])[
+    #toolbox.side-by-side(
+      columns: (60%, 40%),
+      [
+        #v(0.5em)
+
+        *Gherkin* (die Sprache)
+        - DSL für Feature-Files, die Cucumber interpretiert
+        - Englisch: "gherkin" = kleine eingelegte Gurke \ (pickled cucumber)
+        - Etymologie: vom niederländischen *Gurken*
+        - Metapher: \ Requirements werden "eingelegt" / konserviert
+
+      ],
+      align(horizon + center)[
+        #image("../assets/gherkin.jpg", width: 100%)
+      ]
+    )
+  ]
+
+  #slide[
+    #text(size: 9pt)[
+      Bei Palm führten sie 2006 eine Studie durch, die zeigte: Wird ein Bug 3 Wochen später behoben, kostet die Behebung desselben Bugs das 24-fache an Aufwand.
+      #text(style: "italic")[
+        (Quelle: Jeff Sutherland)
+      ]
+    ]
+
+    #image("../assets/DownShift.gif", width: 85%)
+
+    #place(
+      right,
+      dy: -1em,
+      text(size: 10pt, style: "italic")[
+        Bildquelle:
+        #link("https://www.linkedin.com/posts/davidavpereira_fixing-production-bugs-is-640x-more-expensive-activity-7286021036976857089-UHmI/")[David Pereira]
+      ]
+    )
+  ]
+
+  #slide[
+    #image("../assets/TestPyramide.svg", width: 80%)
+  ]
+
+  #slide[
+    #image("../assets/V-Modell-Cucumber.svg", width: 85%)
+
+    #place(
+      right,
+      dy: -1em,
+      text(size: 10pt, style: "italic")[
+        Quelle:
+        #link("https://de.wikipedia.org/wiki/V-Modell")[Wikipedia "V-Modell"]
+      ]
+    )
   ]
 
 ]
