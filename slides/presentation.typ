@@ -150,45 +150,233 @@
     ]
   ]
 
-  #section-slide([Problem])[
-    Probleme sind nur dornige Chancen \
-    #text(size: 0.6em)[-- Deutschlands frechster Arbeitsloser]
-  ]
-
-  #content-slide([Unser Problem])[
-    - Grosse Legacy Codebase
-      - Spezifikation verteilt auf Tickets/Artikel in Jira/Confluence
-      - Tests existieren kaum
-      - Tested by production
-    - Neuere Inititative: Tests in Go
-      - Viel setup, da aggregate die ganze DB umspannen
-      - Business Logik in technische Details vergraben
-      - Stakeholder können nicht mitreden
-    - Edgecases einigremasen unbekannt
-
-    Dann:
-    Spezifikation und Implementierung driften auseinander
-  ]
-
-  #section-slide([Was ist BDD/Cucumber?])[
+  #section-slide([Die Realität])[
     #align(horizon + center)[
-      Cucumber is a tool for running automated acceptance tests, written in plain language.
-      Because they're written in plain language, they can be read by anyone on your team,
-      improving communication, collaboration and trust.
-
-      -- #link("https://cucumber.io/")[cucumber.io]
+      #text(size: 1.2em)[
+        Probleme sind nur dornige Chancen \
+        #v(0.5em)
+        #text(size: 0.5em)[-- Deutschlands frechster Arbeitsloser]
+      ]
     ]
+  ]
+
+  #slide[
+    == Wer kennt das nicht?
+
+    #set align(horizon + center)
+    #set text(size: 20pt)
+
+    *Wo war nochmal die Spezifikation?*
+
+    Irgendwo in Jira... oder war's Confluence? \
+    Oder in dem Teams-Chat von vor 3 Monaten?
+
+    #v(1em)
+    #box(height: 8em)[] // Placeholder space
+
+    // TODO: Add image
+  ]
+
+  #slide[
+    == Wer kennt das nicht?
+
+    #set align(horizon + center)
+    #set text(size: 20pt)
+
+    *Wo war nochmal die Spezifikation?*
+
+    Irgendwo in Jira... oder war's Confluence? \
+    Oder in dem Teams-Chat von vor 3 Monaten?
+
+    #v(1em)
+
+    *Was macht die Methode nochmal?*
+
+    500 Zeilen, 8 verschachtelte Ifs, keine Kommentare \
+    Edge Cases? Das finden wir schon raus... irgendwann
+
+    #v(1em)
+    #box(height: 2em)[] // Placeholder space
+
+    // TODO: Add image
+  ]
+
+  #slide[
+    == Wer kennt das nicht?
+
+    #set align(horizon + center)
+    #set text(size: 20pt)
+
+    *Wo war nochmal die Spezifikation?*
+
+    Irgendwo in Jira... oder war's Confluence? \
+    Oder in dem Teams-Chat von vor 3 Monaten?
+
+    #v(1em)
+
+    *Was macht die Methode nochmal?*
+
+    500 Zeilen, 8 verschachtelte Ifs, keine Kommentare \
+    Edge Cases? Das finden wir schon raus... irgendwann
+
+    #v(1em)
+
+    *Ist das durch Tests abgedeckt?*
+  ]
+
+  #slide[
+    == Die Folgen
+
+    #set align(horizon + center)
+    #set text(size: 22pt)
+
+    ❌ Spezifikation und Code driften auseinander
+
+    #v(1em)
+
+    ⚠️ Jede Änderung ist ein Risiko
+
+    #v(1em)
+
+    🚫 Stakeholder können Requirements nicht verifizieren
+
+    #v(1.5em)
+
+    #text(size: 0.9em, style: "italic")[
+      Es muss doch einen besseren Weg geben...
+    ]
+
+    // TODO: Add image
+  ]
+
+  #slide[
+    == Was wäre, wenn...
+
+    #set align(horizon + center)
+    #set text(size: 18pt)
+
+    ...wir eine #text(weight: "bold")[gemeinsame Single Source of Truth] hätten?
+
+    #text(size: 15pt, style: "italic")[Spezifikation = Tests = Dokumentation]
+
+    #v(0.5em)
+
+    ...unsere Dokumentation #text(weight: "bold")[immer aktuell] bliebe?
+
+    #text(size: 15pt, style: "italic")[Veraltete Doku würde sofort auffallen]
+
+    #v(0.5em)
+
+    ...wir uns auf #text(weight: "bold")[Geschäftslogik statt Implementierung] fokussieren?
+
+    #text(size: 15pt, style: "italic")[Was, nicht Wie]
+
+    #v(0.5em)
+
+    ...#text(weight: "bold")[alle im Team] mitreden könnten?
+
+    #text(size: 15pt, style: "italic")[Auch ohne Programmierkenntnisse]
+  ]
+
+  #slide[
+    == Das Rezept-Prinzip
+
+    #set align(horizon + center)
+    #set text(size: 19pt)
+
+    #text(style: "italic")[
+      *Angenommen* ich habe Gurken, Essig und Dill \
+      *Wenn* ich die Gurken schneide, würze
+      *und* 10 Minuten ziehen lasse \
+      *Dann* erhalte ich einen leckeren Gurkensalat
+    ]
+
+    #v(1.5em)
+
+    Man beschreibt die *Ausgangslage*, die *Handlung* \
+    und das *erwartete Ergebnis* – und prüft, ob es stimmt.
+
+    #v(1.5em)
+
+    In der Softwareentwicklung nennt man dieses Prinzip \
+    *BDD – Behavior Driven Development*.
+  ]
+
+  #section-slide([Und warum die Gurken?])[
+    #align(horizon + center)[
+      #text(size: 0.9em)[
+        Cucumber ist ein BDD-Framework
+      ]
+
+      #v(2em)
+
+      #text(style: "italic", size: 0.85em)[
+        "Cucumber is a tool for running automated acceptance tests, written in plain language.
+        Because they're written in plain language, they can be read by anyone on your team,
+        improving communication, collaboration and trust."
+      ]
+
+      #v(0.5em)
+
+      #text(size: 0.7em)[
+        -- #link("https://cucumber.io/")[cucumber.io]
+      ]
+    ]
+  ]
+
+  #content-slide([Die gemeinsame Sprache])[
+    #toolbox.side-by-side(
+      [
+        *Developer* 🧑‍💻 \
+        _"Ich brauche eine klare, \
+        stabile Spezifikation"_
+
+        #v(1em)
+
+        *QA* 🧪 \
+        _"Ich will nachprüfbare \
+        Validierung"_
+
+        #v(1em)
+
+        *Stakeholder* 👔 \
+        _"Ich will verstehen, \
+        was gebaut wird"_
+      ],
+      align(horizon)[
+        *BDD (Cucumber) löst das:* \
+        Eine Sprache für alle
+
+        #v(0.5em)
+
+        ```feature
+        Szenario: Stent-Dimension validieren
+          Angenommen eine Messvorlage "MV-42"
+            mit Toleranz 100mm ± 5mm
+          Wenn ich 103mm messe
+          Dann ist das Produkt in Ordnung
+        ```
+
+        #v(0.5em)
+
+        ✅ Entwickler: Klare Spec \
+        ✅ QA: Automatisierter Test \
+        ✅ Stakeholder: Lesbar
+      ]
+    )
   ]
 
   #content-slide([Key Features])[
     #let emph-on(on, body) = {
-      if on > 1 { only((until: on - 1))[#body] }
-      only((beginning: on), emph(body))
+      only((until: on - 1), body)
+      only(on, underline(emph(body)))
+      only((beginning: on + 1), emph(body))
     }
 
     #show: set align(horizon)
 
     #toolbox.side-by-side(
+      columns: (60%, 40%),
       lib.item-by-item()[
         - Lebendige Dokumentation
           - Spezifikation werden automatisch getestet
@@ -198,11 +386,17 @@
       ],
 
       align(horizon + center)[
-        Cucumber is a tool for running #emph-on(1)[automated acceptance tests], #emph-on(2)[written in plain language].
-        Because they're written in plain language, they #emph-on(3)[can be read by anyone on your team],
-        improving communication, collaboration and trust.
+        #text(style: "italic", size: 0.9em)[
+          "Cucumber is a tool for running #emph-on(1)[automated acceptance tests], #emph-on(2)[written in plain language].
+          Because they're written in plain language, they #emph-on(3)[can be read by anyone on your team],
+          improving communication, collaboration and trust."
+        ]
 
-        -- #link("https://cucumber.io/")[cucumber.io]
+        #v(0.5em)
+
+        #text(size: 0.7em)[
+          -- #link("https://cucumber.io/")[cucumber.io]
+        ]
       ],
     )
   ]
@@ -407,6 +601,20 @@
         ```
       ],
     )
+  ]
+
+    #content-slide([Warum überhaupt testen?])[
+    - Ein Softwarefehler in Medizinprodukten kann Leben gefährden
+    - Regulatorische Anforderungen (MDR, FDA)
+      - Softwarevalidierung verpflichtend
+
+    #v(1em)
+    #align(center)[
+      #text(size: 0.9em, style: "italic")[
+        Tests verhindern nicht nur Produktionsausfälle, \
+        sondern schützen am Ende auch Menschenleben.
+      ]
+    ]
   ]
 
 ]
