@@ -302,28 +302,6 @@
     *BDD – Behavior Driven Development*.
   ]
 
-  #section-slide([Und warum die Gurken?])[
-    #align(horizon + center)[
-      #text(size: 0.9em)[
-        Cucumber ist ein BDD-Framework
-      ]
-
-      #v(2em)
-
-      #text(style: "italic", size: 0.85em)[
-        "Cucumber is a tool for running automated acceptance tests, written in plain language.
-        Because they're written in plain language, they can be read by anyone on your team,
-        improving communication, collaboration and trust."
-      ]
-
-      #v(0.5em)
-
-      #text(size: 0.7em)[
-        -- #link("https://cucumber.io/")[cucumber.io]
-      ]
-    ]
-  ]
-
   #content-slide([Die gemeinsame Sprache])[
     #toolbox.side-by-side(
       [
@@ -364,6 +342,28 @@
         ✅ Stakeholder: Lesbar
       ]
     )
+  ]
+
+  #section-slide([Und warum die Gurken?])[
+    #align(horizon + center)[
+      #text(size: 0.9em)[
+        Cucumber ist ein BDD-Framework
+      ]
+
+      #v(2em)
+
+      #text(style: "italic", size: 0.85em)[
+        "Cucumber is a tool for running automated acceptance tests, written in plain language.
+        Because they're written in plain language, they can be read by anyone on your team,
+        improving communication, collaboration and trust."
+      ]
+
+      #v(0.5em)
+
+      #text(size: 0.7em)[
+        -- #link("https://cucumber.io/")[cucumber.io]
+      ]
+    ]
   ]
 
   #content-slide([Key Features])[
@@ -836,6 +836,98 @@
         - Natural Language (Gherkin)
         - Feature-Files
         - Für alle Stakeholder
+      ]
+    )
+  ]
+
+  #content-slide([Herausforderungen von BDD/Cucumber])[
+    #set text(size: 15pt)
+
+    *Viele Organisationen kämpfen mit wiederkehrenden Problemen:*
+
+    #v(1em)
+
+    - *Hoher Aufwand* bei Erstellung und Wartung von Szenarien
+      - Jedes Szenario muss manuell geschrieben werden
+      - Änderungen an Features erfordern Updates vieler Szenarien
+
+    #v(0.5em)
+
+    - *Begrenzte Ausdruckskraft*
+      - Komplexe Logik schwer in Gherkin abbildbar
+      - Teilweise implizite Logik (Nutzer ist eingeloggt, hat die nötigen Rechte etc.)
+      - Tendenz zu technischen Details in Business-Szenarien
+
+    #v(0.5em)
+
+    - *Wenig Einblick in Coverage & Qualität*
+      - Welche Kombinationen wurden getestet?
+      - Wo sind Lücken in der Testabdeckung?
+      - Welche Szenarien sind wirklich relevant?
+  ]
+
+  #content-slide([Noch mehr Herausforderungen])[
+    #set text(size: 15pt)
+
+    #v(1em)
+
+    - *Skalierungsprobleme*
+      - Hunderte von Feature-Files schwer zu überblicken
+      - Redundanz und Inkonsistenzen nehmen zu
+
+    #v(0.5em)
+
+    - *Fehlende Traceability*
+      - Schwierig nachzuvollziehen, welche Tests von Änderungen betroffen sind
+  ]
+
+  #content-slide([Ausblick: Modellbasierter Ansatz])[
+    #set text(size: 15pt)
+
+    *Ein vielversprechender Forschungsansatz*
+
+    #v(1em)
+
+    Statt manuell geschriebener Szenarien werden *formale Modelle* zur Grundlage verwendet:
+
+    #v(1em)
+
+    #grid(
+      columns: (1fr, 1fr),
+      column-gutter: 1.5em,
+      align(left)[
+        *Vorteile:*
+        - Automatische Testgenerierung
+        - Impact-Analysen
+        - Regression Test Selection
+        - Qualitätsbewertungen
+      ],
+      align(left)[
+        *Möglichkeiten:*
+        - Effizientere Zusammenarbeit
+        - Tiefe Einblicke in Risiken
+        - KI-Integration in BDD
+        - Systematische Coverage
+      ]
+    )
+
+    #v(1.5em)
+
+    #align(center)[
+      #text(size: 14pt, style: "italic", fill: blue.darken(20%))[
+        Der modellbasierte Ansatz ist aktuell noch Forschungsthema, \
+        zeigt aber vielversprechende Potenziale für die Zukunft von BDD
+      ]
+    ]
+
+    #place(
+      bottom + right,
+      dx: -1em,
+      dy: -1em,
+      text(size: 11pt)[
+        #link("https://www.meetup.com/de-DE/ict-improve/events/310953461/?eventOrigin=group_similar_events")[
+          → "Gherkin is dead, long live BDD?", 21.10. in Eindhoven
+        ]
       ]
     )
   ]
