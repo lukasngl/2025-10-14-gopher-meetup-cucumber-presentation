@@ -733,7 +733,7 @@
     #v(1em)
 
     *Was ist Ginkgo?*
-    - Reifes BDD Testing Framework für Go
+    - BDD Testing Framework für Go
     - Fokus auf ausdrucksstarke, lesbare Tests
     - Arbeitet mit Gomega Matcher-Library zusammen
 
@@ -790,12 +790,55 @@
     )
   ]
 
+  #content-slide([Warum Ginkgo keine gute Wahl ist])[
+    #set text(size: 14pt)
+
+    #v(1em)
+
+    #grid(
+      columns: (60%, 40%),
+      column-gutter: 2em,
+      [
+        - *Gomega Matcher-Probleme*
+          - Eigene DSL für Assertions (nicht Standard-Go)
+          - Steile Lernkurve für neue Teammitglieder
+          - Fehler sind oft schwer zu verstehen
+          - Beispiel: `Expect(result).To(BeNumerically(">=", 42))`
+
+        #v(0.5em)
+
+        - *Nur für Entwickler lesbar*
+          - Code bleibt Code – keine natürliche Sprache
+          - Stakeholder können Tests nicht lesen oder reviewen
+          - Keine direkte Dokumentation für nicht-technische Personen
+
+        #v(0.5em)
+
+        - *Kein echter BDD-Workflow*
+          - Keine Trennung zwischen Spezifikation und Implementierung
+          - Tests sind immer noch eng an Code gekoppelt
+          - Kollaboration mit Business bleibt schwierig
+      ],
+      align(horizon + center)[
+        #text(size: 14pt, style: "italic", fill: orange.darken(20%))[
+          Ginkgo verbessert die Teststruktur, \
+          löst aber nicht das \
+          Kommunikationsproblem \
+          zwischen Teams
+        ]
+      ]
+    )
+  ]
+
   #content-slide([Herausforderungen von BDD/Cucumber])[
     #set text(size: 15pt)
 
-    *Viele Organisationen kämpfen mit wiederkehrenden Problemen:*
+    - *Akzeptanz*
+      - Widerstand gegen neue Arbeitsweise
+      - "Das ist doch nur für Developer" – mangelndes Verständnis des Wertes
+      - Stakeholder nehmen sich keine Zeit für Feature-Reviews
 
-    #v(1em)
+    #v(0.5em)
 
     - *Hoher Aufwand* bei Erstellung und Wartung von Szenarien
       - Jedes Szenario muss manuell geschrieben werden
@@ -805,30 +848,22 @@
 
     - *Begrenzte Ausdruckskraft*
       - Komplexe Logik schwer in Gherkin abbildbar
-      - Teilweise implizite Logik (Nutzer ist eingeloggt, hat die nötigen Rechte etc.)
       - Tendenz zu technischen Details in Business-Szenarien
-
-    #v(0.5em)
-
-    - *Wenig Einblick in Coverage & Qualität*
-      - Welche Kombinationen wurden getestet?
-      - Wo sind Lücken in der Testabdeckung?
-      - Welche Szenarien sind wirklich relevant?
   ]
 
   #content-slide([Noch mehr Herausforderungen])[
     #set text(size: 15pt)
 
-    #v(1em)
-
-    - *Skalierungsprobleme*
-      - Hunderte von Feature-Files schwer zu überblicken
-      - Redundanz und Inkonsistenzen nehmen zu
+    - *Wenig Einblick in Coverage & Qualität*
+      - Welche Kombinationen wurden getestet?
+      - Wo sind Lücken in der Testabdeckung?
+      - Welche Szenarien sind wirklich relevant?
 
     #v(0.5em)
 
-    - *Fehlende Traceability*
-      - Schwierig nachzuvollziehen, welche Tests von Änderungen betroffen sind
+    - *Skalierungsprobleme*
+      - Hunderte von Features schwer zu überblicken
+      - Redundanz und Inkonsistenzen können zunehmen
   ]
 
   #content-slide([Ausblick: Modellbasierter Ansatz])[
