@@ -51,7 +51,10 @@ type valueJSON struct {
 }
 
 // Create creates a new measurement and returns its ID.
-func (r *MeasurementRepository) Create(ctx context.Context, meas measurement.Measurement) (int, error) {
+func (r *MeasurementRepository) Create(
+	ctx context.Context,
+	meas measurement.Measurement,
+) (int, error) {
 	// Serialize measured values to JSON
 	values := meas.Values()
 	jsonValues := make([]valueJSON, len(values))
@@ -111,7 +114,8 @@ func (r *MeasurementRepository) Read(ctx context.Context, id int) (measurement.M
 	var finishedAt *time.Time
 	var valuesJSON []byte
 
-	err := r.pool.QueryRow(ctx, query, id).Scan(&measID, &templateID, &status, &startedAt, &finishedAt, &valuesJSON)
+	err := r.pool.QueryRow(ctx, query, id).
+		Scan(&measID, &templateID, &status, &startedAt, &finishedAt, &valuesJSON)
 	if err != nil {
 		return measurement.Measurement{}, fmt.Errorf("messung nicht gefunden: %w", err)
 	}
@@ -142,8 +146,11 @@ func (r *MeasurementRepository) Read(ctx context.Context, id int) (measurement.M
 		if err != nil {
 			return measurement.Measurement{}, fmt.Errorf("invalid dimension label: %w", err)
 		}
-		if err := meas.ObserveValue(label, jv.Value); err != nil {
-			return measurement.Measurement{}, fmt.Errorf("failed to reconstruct measurement: %w", err)
+		if err := meas.MeasureValue(label, jv.Value); err != nil {
+			return measurement.Measurement{}, fmt.Errorf(
+				"failed to reconstruct measurement: %w",
+				err,
+			)
 		}
 	}
 
@@ -151,7 +158,11 @@ func (r *MeasurementRepository) Read(ctx context.Context, id int) (measurement.M
 }
 
 // Update updates an existing measurement by applying updateFn.
-func (r *MeasurementRepository) Update(ctx context.Context, id int, updateFn func(*measurement.Measurement) error) error {
+func (r *MeasurementRepository) Update(
+	ctx context.Context,
+	id int,
+	updateFn func(*measurement.Measurement) error,
+) error {
 	tx, err := r.pool.Begin(ctx)
 	if err != nil {
 		return fmt.Errorf("failed to begin transaction: %w", err)
@@ -173,7 +184,8 @@ func (r *MeasurementRepository) Update(ctx context.Context, id int, updateFn fun
 	var finishedAt *time.Time
 	var valuesJSON []byte
 
-	err = tx.QueryRow(ctx, query, id).Scan(&measID, &templateID, &status, &startedAt, &finishedAt, &valuesJSON)
+	err = tx.QueryRow(ctx, query, id).
+		Scan(&measID, &templateID, &status, &startedAt, &finishedAt, &valuesJSON)
 	if err != nil {
 		return fmt.Errorf("messung nicht gefunden: %w", err)
 	}
@@ -203,7 +215,7 @@ func (r *MeasurementRepository) Update(ctx context.Context, id int, updateFn fun
 		if err != nil {
 			return fmt.Errorf("invalid dimension label: %w", err)
 		}
-		if err := meas.ObserveValue(label, jv.Value); err != nil {
+		if err := meas.MeasureValue(label, jv.Value); err != nil {
 			return fmt.Errorf("failed to reconstruct measurement: %w", err)
 		}
 	}
@@ -263,7 +275,10 @@ func (r *MeasurementRepository) Update(ctx context.Context, id int, updateFn fun
 }
 
 // ListByTemplate returns all measurements for a specific template.
-func (r *MeasurementRepository) ListByTemplate(ctx context.Context, templateID template.ID) ([]measurement.Measurement, error) {
+func (r *MeasurementRepository) ListByTemplate(
+	ctx context.Context,
+	templateID template.ID,
+) ([]measurement.Measurement, error) {
 	query := `
 		SELECT id, template_id, status, started_at, finished_at, measured_values
 		FROM measurements
@@ -310,7 +325,7 @@ func (r *MeasurementRepository) ListByTemplate(ctx context.Context, templateID t
 			if err != nil {
 				return nil, fmt.Errorf("invalid dimension label: %w", err)
 			}
-			if err := meas.ObserveValue(label, jv.Value); err != nil {
+			if err := meas.MeasureValue(label, jv.Value); err != nil {
 				return nil, fmt.Errorf("failed to reconstruct measurement: %w", err)
 			}
 		}

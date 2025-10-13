@@ -10,13 +10,6 @@
 #let setup(body) = {
   set page(
     paper: "presentation-16-9",
-    margin: (top: 30mm, x: 18mm, bottom: 10mm),
-    header-ascent: 10mm,
-    header: toolbox.full-width-block(
-      inset: (left: 5%),
-      fill: meko_grey,
-      image("../assets/logo.svg"),
-    ),
     footer: {
       h(1fr)
       set text(size: 12pt)
@@ -49,6 +42,8 @@
 
   show heading.where(level: 2): set text(fill: meko_grey)
   show heading.where(level: 3): set text(fill: meko_grey, size: 20pt)
+
+  show strong: set text(fill: meko_grey)
 
   set list(marker: text(fill: meko_green, sym.bullet), indent: 1em)
 

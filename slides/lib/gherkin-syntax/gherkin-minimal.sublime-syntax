@@ -17,9 +17,9 @@ contexts:
       scope: comment.line.gherkin
 
   keywords:
-    - match: '^(\s|pin\d)*(Feature|Funktionalität|Funktion|Background|Grundlage|Hintergrund|Voraussetzungen|Vorbedingungen|Scenario Outline|Scenario Template|Szenariogrundriss|Szenarien|Scenario|Beispiel|Szenario|Examples|Example|Beispiele|Rule|Regel)(pin\d)?\b'
+    - match: '^(\s|pin\d+)*(Feature|Funktionalität|Funktion|Background|Grundlage|Hintergrund|Voraussetzungen|Vorbedingungen|Scenario Outline|Scenario Template|Szenariogrundriss|Szenarien|Scenario|Beispiel|Szenario|Examples|Example|Beispiele|Rule|Regel)(pin\d+)?\b'
       scope: keyword.control.gherkin
-    - match: '^\s*(Gegeben seien|Gegeben sei|Angenommen|Given|When|Wenn|Then|Dann|And|Und|But|Aber)\b'
+    - match: '^(\s|pin\d+)*(Gegeben seien|Gegeben sei|Angenommen|Given|When|Wenn|Then|Dann|And|Und|But|Aber)\b'
       scope: keyword.other.gherkin
     - match: '^\s*@\w+'
       scope: entity.name.tag.gherkin

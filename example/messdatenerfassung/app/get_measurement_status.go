@@ -6,8 +6,8 @@ import (
 	"example.invalid/domain/measurement"
 )
 
-// GetMeasurementStatusQuery represents a query for measurement status.
-type GetMeasurementStatusQuery struct {
+// GetMeasurementStatus represents a query for measurement status.
+type GetMeasurementStatus struct {
 	MeasurementID int
 }
 
@@ -28,11 +28,13 @@ type MeasuredValue struct {
 }
 
 // GetMeasurementStatusHandler handles the GetMeasurementStatus query.
-type GetMeasurementStatusHandler = QueryHandler[GetMeasurementStatusQuery, MeasurementStatusResult]
+type GetMeasurementStatusHandler = QueryHandler[GetMeasurementStatus, MeasurementStatusResult]
 
 // NewGetMeasurementStatusHandler creates a new handler for querying measurement status.
-func NewGetMeasurementStatusHandler(repo measurement.Repository) QueryHandler[GetMeasurementStatusQuery, MeasurementStatusResult] {
-	return func(ctx context.Context, qry GetMeasurementStatusQuery) (MeasurementStatusResult, error) {
+func NewGetMeasurementStatusHandler(
+	repo measurement.Repository,
+) QueryHandler[GetMeasurementStatus, MeasurementStatusResult] {
+	return func(ctx context.Context, qry GetMeasurementStatus) (MeasurementStatusResult, error) {
 		meas, err := repo.Read(ctx, qry.MeasurementID)
 		if err != nil {
 			return MeasurementStatusResult{}, err

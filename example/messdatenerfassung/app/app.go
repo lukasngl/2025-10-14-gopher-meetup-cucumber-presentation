@@ -26,7 +26,7 @@ type App struct {
 	// Commands
 	CreateTemplate   CreateTemplateHandler
 	StartMeasurement StartMeasurementHandler
-	ObserveValue     ObserveValueHandler
+	ObserveValue     MeasureValueHandler
 
 	// Queries
 	GetMeasurementStatus GetMeasurementStatusHandler
@@ -42,7 +42,9 @@ func New(templateRepo template.Repository, measurementRepo measurement.Repositor
 		ObserveValue:   LogCommandHandler(NewObserveValueHandler(measurementRepo)),
 
 		// StartMeasurement returns an ID, so it's technically a query (CQRS purists would disagree, but this is pragmatic)
-		StartMeasurement: LogQueryHandler(NewStartMeasurementHandler(templateRepo, measurementRepo)),
+		StartMeasurement: LogQueryHandler(
+			NewStartMeasurementHandler(templateRepo, measurementRepo),
+		),
 
 		// Queries with logging
 		GetMeasurementStatus: LogQueryHandler(NewGetMeasurementStatusHandler(measurementRepo)),
@@ -60,12 +62,12 @@ func LogCommandHandler[C any](h CommandHandler[C]) CommandHandler[C] {
 			"command", fmt.Sprintf("%T", cmd),
 			"seq", seq.Add(1),
 		)
-		slog.Info("handling command", "body", cmd)
+		slog.Debug("handling command", "body", cmd)
 		defer func() {
 			if err == nil {
-				slog.Info("command handled successfully")
+				slog.Debug("command handled successfully")
 			} else {
-				slog.Error("command handling failed", "error", err)
+				slog.Debug("command handling failed", "error", err)
 			}
 		}()
 
@@ -81,12 +83,12 @@ func LogQueryHandler[Q, R any](h QueryHandler[Q, R]) QueryHandler[Q, R] {
 			"query", fmt.Sprintf("%T", qry),
 			"seq", seq.Add(1),
 		)
-		slog.Info("handling query", "body", qry)
+		slog.Debug("handling query", "body", qry)
 		defer func() {
 			if err == nil {
-				slog.Info("query handled successfully", "result", res)
+				slog.Debug("query handled successfully", "result", res)
 			} else {
-				slog.Error("query handling failed", "error", err)
+				slog.Debug("query handling failed", "error", err)
 			}
 		}()
 

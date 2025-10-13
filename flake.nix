@@ -33,6 +33,7 @@
             typstyle
             # keep-sorted end
           ];
+          CGO_ENABLED = "0";
           TYPST_FONT_PATHS = builtins.concatStringsSep ":" [
             # keep-sorted start
             pkgs.fira

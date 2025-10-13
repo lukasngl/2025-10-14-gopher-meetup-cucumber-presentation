@@ -17,6 +17,10 @@ type SzenarioState struct {
 	LastError         error
 	LastTemplateID    string
 	LastMeasurementID int
+
+	// scenarioPool is the database connection pool for this specific scenario
+	// (only used in integration tests with database isolation)
+	scenarioPool any // *pgxpool.Pool, but we use any to avoid import cycle
 }
 
 // Get retrieves the scenario state from the context, panicking if not found.

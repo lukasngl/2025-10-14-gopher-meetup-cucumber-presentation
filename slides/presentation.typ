@@ -28,133 +28,6 @@
     ),
   )
 
-  #content-slide([Agenda])[
-    #pdfpc.speaker-note[```md
-      Structure: Problem → Solution → Payoff with recurring characters (Developer, Stakeholder, Colleague)
-    ```]
-
-    #set text(size: 11pt)
-    #columns(2)[
-
-      *1. Introduction (3-5 min)*
-      - Who we are
-      - What is BDD/Cucumber?
-        - Brief overview
-        - Tools: Cucumber, godog
-        - Visual Aid: Show cucumber and godog logos
-      - Structure of feature file
-        - Feature, Scenario, [Rule], Given/When/Then
-        - Visual Aid: Simple example feature file
-          ```feature
-          Feature: Feature development
-            Rule: Using godog rules
-              Scenario: Using godog
-              Given I use godog
-              When I implement a feature
-              Then I am happy
-          ```
-      - Why BDD/Cucumber?
-        - Readable Test
-        - Living documentation
-        - Collaboration between developers and stakeholders
-        - Clearer requirements
-      - The killer feature:
-        - Mulilangual support
-          - #link(
-              "https://cucumber.io/docs/gherkin/languages",
-            )[80 languages supported]
-          - Translation layer from the Domain language to code
-          - Visual Aid: English Code and German Cucumber side by side
-
-      *2. The Problem - Act by Act (15-20 min)*
-      - Setting the scene
-        - New Messvorlagen feature request
-        - Specification lives in Jira
-          - Visual Aid: Show a broken jira page; and a fixed on the next. (Oh broken, let's reload; there we go)
-        - Developer writes Go test
-
-      - Developer's pain
-        - Show convoluted Go test code
-        - First: whole test (wall of code, overwhelming)
-        - Then: break into chunks to analyze
-        - Lots of setup, unclear structure
-        - Business logic buried in technical details
-
-      - Stakeholder's pain
-        - "Can you explain what this test does?"
-        - Show Go code rendered as Egyptian hieroglyphs (𓀀 𓀁 𓀂 𓀃 𓀄...)
-        - "This is hieroglyphs to me!"
-        - Can't verify if requirements are met
-
-      - Colleague's pain
-        - Makes a subtle logic change to the code
-        - Updates the Go tests (they pass ✅)
-        - Forgets to update Jira/Confluence spec
-        - Spec and implementation have silently drifted apart
-        - No one notices until much later...
-
-      *3. The Refactoring Journey (10-15 min)*
-      - Step 1: Identify structure
-        - Highlight Given/When/Then blocks in the messy test
-        - User story was already in the godoc!
-
-      - Step 2: Extract functions
-        - Refactor into named functions
-        - Code becomes more readable
-
-      - Step 3: Transform to Cucumber
-        - Show 1:1 mapping from functions to steps
-        - User story from godoc → feature file
-
-      - Developer interlude
-        - "But table-driven tests are more convenient!"
-        - Show verbose Go struct list
-
-      - Counter: Scenario Outline
-        - Same convenience, readable syntax
-        - Show cucumber table syntax
-
-      *4. The Resolution (5 min)*
-      - Stakeholder's relief
-        - "I can read this!"
-        - Spec can be published to wiki
-        - Can participate in review
-
-      - Colleague's relief
-        - "Now when I change the logic, the test fails until I update the spec"
-        - Documentation literally cannot be outdated
-        - Living documentation guarantee
-
-      - Developer's relief
-        - Less boilerplate
-        - Clearer intent
-        - Better collaboration
-
-      *5. Technical Deep Dive (5-10 min)*
-      - godog step definitions
-      - Running tests
-      - Integration with test suite
-      - Quick tips & tricks
-
-      *6. Positioning & Best Practices (5 min)*
-      - Test pyramid: where does this fit?
-        - #strike()[Unit], Integration, E2E
-        - Focus on business logic, less technical details
-      - When to use BDD/Cucumber
-        - Complex business logic
-        - Stakeholder collaboration needed
-      - When NOT to use it
-        - Unit tests
-        - Simple CRUD operations
-
-      *7. Conclusion (2-3 min)*
-      - Recap benefits: Living docs, collaboration, clarity
-      - Links & resources
-        - #link("https://cucumber.io/docs/bdd/")
-      - Q&A
-    ]
-  ]
-
   #section-slide([Die Realität])[ ]
 
   #content-slide([Wer kennt das nicht?])[
@@ -166,16 +39,18 @@
     Irgendwo in Jira... oder war's Confluence? \
     Oder in dem Teams-Chat von vor 3 Monaten?
 
-    #show: later
 
-    #v(1em)
-    *Was macht die Funktion nochmal?*
+    #uncover(1)[
+      #v(1em)
+      *Was macht die Funktion nochmal?*
 
-    500 Zeilen, 8 verschachtelte Ifs, keine Kommentare \
-    Edge Cases? Das finden wir schon raus... irgendwann
+      500 Zeilen, 8 verschachtelte Ifs, keine Kommentare \
+      Edge Cases? Das finden wir schon raus... irgendwann
+    ]
 
-    #show: later
-    #v(1em)
+    #uncover(2)[
+      #v(1em)
+    ]
 
     *Ist das durch Tests abgedeckt?*
   ]
@@ -199,8 +74,6 @@
     #text(size: 0.9em, style: "italic")[
       Es muss doch einen besseren Weg geben...
     ]
-
-    // TODO: Add image
   ]
 
   #content-slide([Was wäre, wenn...])[
@@ -359,130 +232,306 @@
     )
   ]
 
-  #section-slide([Hands-On: Feature spezifieren und implementieren])[
-    #align(left)[
-      - ohne cucumber:
-        - anforderung in jira
-        - test in go
-        - documentation in confluence
-      - mit cucumber
-        - => nice!
+  #section-slide([Hands-On])[
+    #set image(height: 4cm)
+    #set figure(numbering: none)
+    #let arrow = text(size: 2cm, emph(fa-arrow-right()))
+
+    #stack(
+      dir: ltr,
+      spacing: 1em,
+      ..(
+        (caption: "Stake Holder", image: "../assets/steak-holder.png"),
+        (caption: "Spezifikation", image: "../assets/pickle-gopher.png"),
+        (caption: "Implementierung", image: "../assets/godog.png"),
+      )
+        .map(x => figure(caption: x.caption, image(x.image, alt: x.caption)))
+        .intersperse(arrow),
+    )
+  ]
+
+  #content-slide([Anforderungen vom Steakholder])[
+    #toolbox.side-by-side(
+      columns: (1fr, auto),
+      [
+        #align(center)[*User-Story*]
+        #v(1em)
+
+        *Als* Qualitätsprüfer \
+        *Möchte ich* gemessene Werte für definierte Dimensionen erfassen \
+        *Damit* die Maßhaltigkeit des Werkstücks dokumentiert wird \
+
+        #uncover(1)[
+
+          #align(center)[*Akzeptanzkriterien*]
+          #v(1em)
+
+          - Maßhaltig wenn alle Messungen innerhalb der Toleranz
+          - Messung vollständig wenn für alle Dimensionen ein Wert erfasst wurde
+          - ...
+        ]
+      ],
+      [ #image("../assets/steak-holder.png", height: 5cm) ],
+    )
+  ]
+
+  #content-slide([Spezifikation in Gherkin])[
+    #toolbox.side-by-side(
+      columns: (auto, 1fr),
+      [ #image("../assets/pickle-gopher.png", height: 5cm) ],
+      [
+        #reveal-code(lines: (2, 5, 16), full: true)[```feature
+          pin13#+language: depin14
+          Funktionalität: pin4Messwert erfassenpin5
+            pin1Als Qualitätsprüfer
+            Möchte ich gemessene Werte für definierte Dimensionen erfassenpin3
+            Damit die Maßhaltigkeit des Werkstücks dokumentiert wirdpin2
+
+          pin6Regel: Maßhaltig wenn alle Messungen innerhalb der Toleranzpin7
+
+            pin8Szenario: Messwert außerhalb Toleranzpin9
+              pin10Angenommen Messvorlage "MV123" mit Dimensionen existiert:pin11
+                | Name        | Einheit | Nominal | Untere | Obere |
+                | Durchmesser | mm      | 3.5     | 3.4    | 3.6   |
+              Und eine Messung gestartet wurde
+              Wenn der Wert 3.7 für "Durchmesser" erfasst wird
+              Dann ist die Messung vollständig
+              Und das Teil ist nicht maßhaltigpin12
+        ```]
+
+        #only(1)[
+          #pinit-highlight(4, 5, fill: yellow.transparentize(80%))
+          #pinit-point-from(
+            (4, 5),
+            offset-dy: 2.5em,
+            offset-dx: 5em,
+            body-dy: -0.5em,
+            pin-dy: 0.25em,
+            pin-dx: 0em,
+          )[_Name des Features_]
+          #pinit-highlight(13, 14, fill: blue.transparentize(80%))
+          #pinit-point-from(
+            (13, 14),
+            offset-dy: -2em,
+            offset-dx: 5em,
+            body-dy: -0.5em,
+            pin-dy: -1em,
+            pin-dx: 0em,
+          )[_#emoji.wand Sprache via magic comment_]
+        ]
+
+        #only(2)[
+          #pinit-highlight(1, 2, 3)
+          #pinit-point-from(
+            (1, 2, 3),
+            pin-dy: 1cm,
+            offset-dy: 1.5cm,
+            body-dy: -0.25em,
+          )[_Freitext (hier User-Story)_]
+        ]
+
+        #only(3)[
+          #pinit-highlight(fill: white, 6, 7)
+          #pinit-highlight(8, 9)
+          #pinit-point-from(
+            (8, 9),
+            pin-dy: -0.5cm,
+            offset-dy: -1.5cm,
+            body-dy: -0.25em,
+          )[_Spezifikation des Features durch Beispiele_]
+        ]
+
+        #only(4)[
+          #pinit-highlight(6, 7)
+          #pinit-point-from(
+            (6, 7),
+            // pin-dy: 1cm,
+            offset-dy: 0.5cm,
+            body-dy: -0.25em,
+          )[_Optional: Gruppierung nach z.B. Akzeptanzkriterium_]
+        ]
+
+        #uncover(5)[
+          ...weitere Szenarien um z.B. Edgecases abzudecken
+        ]
+      ],
+    )
+  ]
+
+  #content-slide([Exkurs: Verhalten in Go Test abbilden])[
+    #show raw: set text(size: 12pt)
+    #toolbox.side-by-side(
+      [
+        ```go
+        func TestMeasurementOutOfTolerance(t *testing.T) {
+          pin1db := setupTestDB(t)
+          templateRepo := templaterepo.New(db)
+          measurementRepo := measurementrepo.New(db)
+          mde := app.New(templateRepo, measurementRepo)
+
+          templateID, _ := template.NewID("MV123")
+          dimensions := []template.Dimension{{ ... }}
+          mde.CreateTemplate(ctx, app.CreateTemplate{
+            ID: templateID, Dimensions: dimensions,
+          })
+
+          measurementID, _ := app.StartMeasurement(ctx,
+            app.StartMeasurement{TemplateID: templateID})pin2
+        ```
+      ],
+      [
+        ```go
+          pin3mde.MeasureValue(ctx, app.ObserveValueCommand{pin7
+            MeasurementID: measurementID,
+            Label: template.MustNewLabel("Durchmesser"),
+            Value: 3.7, // außerhalb Toleranz!
+          })pin4
+
+          pin5status, _ := app.GetMeasurementStatus(ctx,
+            app.GetMeasurementStatus{MeasurementID: measurementID})
+
+          assert.True(t, status.IsFinished)
+          assert.False(t, status.IsDimensionallyAccurate)pin6
+        }
+        ```
+      ],
+    )
+
+    #uncover(2)[
+      #pinit-highlight(1, 2, fill: green.transparentize(80%))
+      #pinit-highlight(3, 4, 7, fill: blue.transparentize(80%))
+      #pinit-highlight(5, 6, fill: orange.transparentize(80%))
+      #pinit-place((1, 2), dy: 4cm, text(fill: green.darken(50%))[Given])
+      #pinit-place((3, 4, 7), dy: -2.25cm, text(fill: blue.darken(50%))[When])
+      #pinit-place((5, 6), dy: 2cm, text(fill: orange.darken(50%))[Then])
     ]
   ]
 
-  #content-slide([Wie spezifiere ich eine Feature?])[
-    #set align(horizon)
-
-    #reveal-code(lines: (1, 4, 11), full: true)[```feature
-      Feature: pin4Withdrawing cashpin5
-        pin1As a bank customer
-        I want to withdraw cash from an ATMpin3
-        So that I can buy hotdogspin2
-
-      pin6Rule: Can withdraw cash if sufficient fundspin7
-
-        pin8Scenario: Successful withdrawal within balancepin9
-          pin10Given Alice has 234.56 in their account
-          When Alice tries to withdraw 200.00
-          Then the withdrawal is successfulpin11
-    ```]
-
-    #only(1)[
-      #pinit-highlight(4, 5, fill: yellow.transparentize(80%))
-      #pinit-point-from(
-        (4, 5),
-        offset-dy: -2em,
-        offset-dx: 5em,
-        body-dy: -0.5em,
-        pin-dy: -1em,
-        pin-dx: 0em,
-      )[_Name des Features_]
-    ]
-
-    #only(2)[
-      #pinit-highlight(1, 2, 3)
-      #pinit-point-from(
-        (1, 2, 3),
-        pin-dy: 1cm,
-        offset-dy: 1.5cm,
-        body-dy: -0.25em,
-      )[_Freitext (hier User-Story)_]
-    ]
-
-    #only(3)[
-      #pinit-highlight(fill: white, 6, 7)
-      #pinit-highlight(8, 9)
-      #pinit-point-from(
-        (8, 9),
-        pin-dy: -0.5cm,
-        offset-dy: -1.5cm,
-        body-dy: -0.25em,
-      )[_Spezifikation des Features durch Beispiele_]
-    ]
-
-    #only(4)[
-      #pinit-highlight(6, 7)
-      #pinit-point-from(
-        (6, 7),
-        // pin-dy: 1cm,
-        offset-dy: 0.5cm,
-        body-dy: -0.25em,
-      )[_Optional: Gruppierung nach z.B. Akzeptanzkriterium_]
-    ]
-
-  ]
-
-  #content-slide([My English is not the yellow of the egg])[
-    #set align(horizon)
-
-    ```feature
-      pin1#+language: depin2
-      pin3Funktionalitätpin4: Geld abheben
-        Als Bankkunde
-        Möchte ich Geld von einem Geldautomaten abheben
-        Damit ich Hotdogs kaufen kann
-
-      Szenario: Erfolgreiche Abhebung innerhalb des Guthabens
-        Angenommen Alice hat 234,56 auf ihrem Konto
-        Wenn Alice versucht 200,00 abzuheben
-        Dann ist die Abhebung erfolgreich
-    ```
-
-    #show: later
-
-    #pinit-highlight(1, 2)
-    #pinit-point-from(
-      (1, 2),
-      offset-dy: -2em,
-      offset-dx: 5em,
-      body-dy: -0.5em,
-      pin-dy: -1em,
-      pin-dx: 0em,
-    )[Sprache mittels magic-comment festlegen]
-  ]
-
-  #section-slide([Implementierung])[
-    Wie kriege ich das jetzt zum Laufen?
-  ]
-
-  #content-slide([Godog])[
-    - bla
-    - bluh
-    - blups
-  ]
-
-  #content-slide([Schritte implementieren])[
-    - Schritte entsprechen einer Go Funktion
-
+  #content-slide([Refactored: Funktionen extrahiert])[
     ```go
-    func InitializeSteps(sc *godog.ScenarioContext) {
-      sc.When(`^I measure (\d+)mm$`, func(mm int) error {
-        state := FromCtx(ctx)
-        return state.app.ObserveMeasurement(ctx, mm)
+    func TestMeasurementOutOfTolerance(t *testing.T) {
+      // Given
+      app := setupApp(t)
+      templateID := givenTemplateExists(t, app, "MV123", []Dimension{
+        { Label: "Durchmesser", Unit: "mm",
+          Nominal: 3.5, Lower: 3.4, Upper: 3.6,
+        },
       })
+      measurementID := givenMeasurementStarted(t, app, templateID)
+
+      // When
+      whenIObserveValue(t, app, measurementID, "Durchmesser", 3.7)
+
+      // Then
+      thenMeasurementIsFinished(t, app, measurementID)
+      thenItIsNotDimensionallyAccurate(t, app, measurementID)
     }
     ```
   ]
+
+  #content-slide([Weiter refactored: Suite mit Methoden])[
+    Lokale Variablen wandern in die Suite
+    #toolbox.side-by-side(
+      columns: (1fr, 1fr),
+      [
+        *Go-Test*
+        #set text(size: 11pt)
+        ```go
+        func TestMeasurementOutOfTolerance(t *testing.T) {
+          suite := &testSuite{app: setupApp(t)}
+          suite.givenTemplateExists("MV123", []Dimension{...})
+          suite.givenMeasurementStarted()
+          suite.whenIObserveValue("A", 3.7)
+          suite.thenMeasurementIsFinished(t)
+          suite.thenItIsNotDimensionallyAccurate(t)
+        }
+        ```
+      ],
+      [
+        #uncover(2)[
+          *Gherkin*
+          #set text(size: 11pt)
+          ```feature
+          Szenario: Messwert außerhalb Toleranz
+            Angenommen Messvorlage "MV123"
+              mit Dimensionen existiert:
+              | Name        | Einheit | Nominal |
+              | Durchmesser | mm      | 3.5     |
+            Und eine Messung gestartet wurde
+
+            Wenn der Wert 3.7 für "A" erfasst wird
+
+            Dann ist die Messung vollständig
+            Und das Teil ist nicht maßhaltig
+          ```
+        ]
+      ],
+    )
+  ]
+
+  #content-slide([Implementierung mit Godog: Steps definieren])[
+    Jeder Gherkin-Step wird via Regex einer Suite-Methode zugeordnet
+    #toolbox.side-by-side(
+      columns: (1fr, auto),
+      [
+        ```go
+        func InitializeScenario(sc *godog.ScenarioContext) {
+          suite := &testSuite{}
+
+          sc.Before(func(context.Context, sc *godog.Scenario) {
+            suite.app = setupApp()
+          })
+
+          sc.Given(`^Messvorlage "([^"]*)" mit Dimensionen existiert:$`,
+            suite.givenTemplateExists)
+          sc.When(`^der Wert ([\d.]+) für "([^"]*)" erfasst wird$`,
+            suite.whenIObserveValue)
+          sc.Then(`^die Messung vollständig$`,
+            suite.thenMeasurementIsFinished)
+
+          ...
+        }
+        ```
+      ],
+      [ #image("../assets/godog.png", height: 5cm) ],
+    )
+  ]
+
+  #content-slide([Test Suite ausführen])[
+    #toolbox.side-by-side(
+      columns: (1fr, auto),
+      [
+        #set text(size: 14pt)
+
+        ```go
+        func TestFeatures(t *testing.T) {
+          suite := godog.TestSuite{
+            ScenarioInitializer: pin1InitializeScenariopin2,
+            Options: &godog.Options{
+              Format:   "pretty",
+              Paths:    []string{"features"},
+              TestingT: t,
+            },
+          }
+
+          if suite.Run() != 0 {
+            t.Fatal("non-zero status returned")
+          }
+        }
+        ```
+
+        #pinit-highlight(1, 2, fill: blue.transparentize(80%))
+      ],
+      [ #image("../assets/godog.png", height: 5cm) ],
+    )
+  ]
+
+  #content-slide([Run the Test])[
+    #set align(horizon + center)
+    #image("../assets/godog-run.png", height: 1fr)
+  ]
+
+  #section-slide([Rezepte])[]
 
   #content-slide([Background])[
     Schritte die vor jedem Szenario ausgeführt werden:
@@ -549,6 +598,82 @@
         ```
       ],
     )
+  ]
+
+  #content-slide([Table])[
+    #toolbox.side-by-side(
+      columns: (2fr, 1fr),
+      [
+        ```go
+        // ^Messvorlage "(MV\d+)" existiert$
+        func GivenTemplateExists(
+          ctx context.Context,
+          id string,
+          table *godog.Table,
+        ) {
+          var dimensions []struct{
+            Dimension string  `table:"dimension"`
+            Nominal   float64 `table:"Nomininal"`
+            Upper     float64 `table:"Obere T,optional"`
+            Lower     float64 `table:"Untere T,optional"`
+          }
+
+           _ := godotils.UnmarhsalTable(table, &dimensions)
+        }
+        ```
+      ],
+      [
+        ```feature
+        Angenommen Messvorlage "MV123" existiert
+          | Dimension | Nomininal |
+          | A         |       5mm |
+          | B         |      42mm |
+          | C         |   1337deg |
+        ```
+      ],
+    )
+  ]
+
+  #content-slide([DocString])[
+    #toolbox.side-by-side(
+      [
+        ```feature
+        Feature: Ceaser Cipher Encryption
+
+          Scenario: Encrypt a Message
+            When I run rotcli with input:
+              """
+              HELLO WORLD
+              """
+            Then the output should be:
+              """
+              URYYB JBEYQ
+              """
+        ```
+      ],
+      [
+        ```go
+        // "^the output should be:$"
+        func(ctx context.Context,
+          input *godog.DocString,
+        ) error {
+          expected := input.Content
+          actual := getOutput(ctx)
+          // Compare
+        },
+        ```
+      ],
+    )
+  ]
+
+  #section-slide([Tools])[
+    - godog: Cucumber Test-Framework für Go
+    - ghokin: formatter für gherkin files in go
+    - godogen: colocate step patterns with implementation
+    - godotils: table utilities for godog
+  ]
+
+  #section-slide([Fazit?])[
   ]
 
   #content-slide([Warum überhaupt testen?])[
@@ -710,19 +835,6 @@
 
   #slide[
     #image("../assets/TestPyramide.svg", width: 80%)
-  ]
-
-  #slide[
-    #image("../assets/V-Modell-Cucumber.svg", width: 85%)
-
-    #place(
-      right,
-      dy: -1em,
-      text(size: 10pt, style: "italic")[
-        Quelle:
-        #link("https://de.wikipedia.org/wiki/V-Modell")[Wikipedia "V-Modell"]
-      ],
-    )
   ]
 
   #content-slide([Alternative: Ginkgo])[

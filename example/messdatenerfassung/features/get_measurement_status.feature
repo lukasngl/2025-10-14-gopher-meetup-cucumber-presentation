@@ -4,7 +4,7 @@ Funktionalität: Messstatus abfragen
   Möchte ich den Status einer laufenden oder abgeschlossenen Messung abfragen
   Damit ich sehe, welche Dimensionen bereits gemessen wurden und ob das Teil maßhaltig ist
 
-  Hintergrund:
+  Grundlage:
     Angenommen eine Messvorlage "Stent-Typ-A" mit den Dimensionen existiert:
       | Name         | Einheit | Nominal | Untere Toleranz | Obere Toleranz |
       | Durchmesser  | mm      | 3.5     | 3.4             | 3.6            |
@@ -12,15 +12,15 @@ Funktionalität: Messstatus abfragen
       | Innen Radius | mm      | 1.5     | 1.48            | 1.52           |
 
   Szenario: Status einer neu gestarteten Messung
-    Angenommen eine Messung für Vorlage "Stent-Typ-A" gestartet wurde
+    Angenommen eine Messung für die Vorlage "Stent-Typ-A" gestartet wurde
     Wenn der Messstatus abgefragt wird
     Dann ist die Messung unvollständig
     Und 0 von 3 Dimensionen wurden gemessen
 
   Szenario: Status nach teilweiser Erfassung
-    Angenommen eine Messung für Vorlage "Stent-Typ-A" gestartet wurde
-    Und der Wert 3.52 für "Durchmesser" erfasst wurde
-    Und der Wert 0.082 für "Stegbreite" erfasst wurde
+    Angenommen eine Messung für die Vorlage "Stent-Typ-A" gestartet wurde
+    Und der Wert 3.52 für den "Durchmesser" erfasst wurde
+    Und der Wert 0.082 für die "Stegbreite" erfasst wurde
     Wenn der Messstatus abgefragt wird
     Dann ist die Messung unvollständig
     Und 2 von 3 Dimensionen wurden gemessen
@@ -30,18 +30,18 @@ Funktionalität: Messstatus abfragen
       | Stegbreite  | 0.082 | Ja                 |
 
   Szenario: Status einer abgeschlossenen maßhaltigen Messung
-    Angenommen eine Messung für Vorlage "Stent-Typ-A" gestartet wurde
-    Und der Wert 3.52 für "Durchmesser" erfasst wurde
-    Und der Wert 0.082 für "Stegbreite" erfasst wurde
-    Und der Wert 1.50 für "Innen Radius" erfasst wurde
+    Angenommen eine Messung für die Vorlage "Stent-Typ-A" gestartet wurde
+    Und der Wert 3.52 für den "Durchmesser" erfasst wurde
+    Und der Wert 0.082 für die "Stegbreite" erfasst wurde
+    Und der Wert 1.50 für den "Innen Radius" erfasst wurde
     Wenn der Messstatus abgefragt wird
     Dann ist die Messung vollständig
     Und das gemessene Teil ist maßhaltig
     Und 3 von 3 Dimensionen wurden gemessen
 
   Szenario: Status einer nicht maßhaltigen Messung
-    Angenommen eine Messung für Vorlage "Stent-Typ-A" gestartet wurde
-    Und der Wert 3.7 für "Durchmesser" erfasst wurde
+    Angenommen eine Messung für die Vorlage "Stent-Typ-A" gestartet wurde
+    Und der Wert 3.7 für den "Durchmesser" erfasst wurde
     Wenn der Messstatus abgefragt wird
     Dann ist die Messung vollständig
     Und das gemessene Teil ist nicht maßhaltig

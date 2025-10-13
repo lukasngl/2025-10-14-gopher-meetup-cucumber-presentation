@@ -10,15 +10,16 @@ import (
 )
 
 func InitHandlerTest(tsc *godog.TestSuiteContext) {
-	tsc.ScenarioContext().
-		Before(func(ctx context.Context, sc *godog.Scenario) (context.Context, error) {
-			state := &SzenarioState{
-				App: app.New(
-					templaterepo.New(),
-					measurementrepo.New(),
-				),
-			}
+	sc := tsc.ScenarioContext()
 
-			return WithSzenarioState(ctx, state), nil
-		})
+	sc.Before(func(ctx context.Context, sc *godog.Scenario) (context.Context, error) {
+		state := &SzenarioState{
+			App: app.New(
+				templaterepo.New(),
+				measurementrepo.New(),
+			),
+		}
+
+		return WithSzenarioState(ctx, state), nil
+	})
 }

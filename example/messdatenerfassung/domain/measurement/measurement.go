@@ -61,14 +61,14 @@ func New(id int, tmpl template.Template) Measurement {
 	}
 }
 
-// ObserveValue records a measured value for a dimension
+// MeasureValue records a measured value for a dimension
 // Business rules:
 // - Cannot observe after measurement is finished
 // - Cannot observe dimension not in template
 // - Cannot observe same dimension twice
 // - Any out-of-spec value → OUT_OF_SPEC (finished)
 // - All dimensions measured + all in spec → IN_SPEC (finished)
-func (meas *Measurement) ObserveValue(
+func (meas *Measurement) MeasureValue(
 	label template.Label,
 	value float64,
 ) error {

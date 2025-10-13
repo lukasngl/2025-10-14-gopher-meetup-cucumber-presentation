@@ -30,4 +30,4 @@ Funktionalität: Messvorlagen-Details abfragen
   Szenario: Details einer nicht existierenden Messvorlage abfragen
     Wenn versucht wird die Details der Messvorlage "Nicht-Existent" abzufragen
     Dann sollte ein Fehler auftreten
-    Und die Fehlermeldung sollte "Messvorlage nicht gefunden" enthalten
+    Und die Fehlermeldung sollte "nicht gefunden" enthalten

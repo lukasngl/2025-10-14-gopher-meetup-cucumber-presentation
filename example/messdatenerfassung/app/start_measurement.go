@@ -8,22 +8,22 @@ import (
 	"example.invalid/domain/template"
 )
 
-// StartMeasurementCommand represents a command to start a new measurement session.
-type StartMeasurementCommand struct {
+// StartMeasurement represents a command to start a new measurement session.
+type StartMeasurement struct {
 	TemplateID template.ID
 }
 
 // StartMeasurementHandler handles the StartMeasurement command.
 // Returns the ID of the newly created measurement.
-type StartMeasurementHandler = QueryHandler[StartMeasurementCommand, int]
+type StartMeasurementHandler = QueryHandler[StartMeasurement, int]
 
 // NewStartMeasurementHandler creates a new handler for starting measurements.
 // The handler loads the template and creates a new measurement in PENDING status.
 func NewStartMeasurementHandler(
 	templateRepo template.Repository,
 	measurementRepo measurement.Repository,
-) QueryHandler[StartMeasurementCommand, int] {
-	return func(ctx context.Context, cmd StartMeasurementCommand) (int, error) {
+) QueryHandler[StartMeasurement, int] {
+	return func(ctx context.Context, cmd StartMeasurement) (int, error) {
 		// Load template
 		tmpl, err := templateRepo.Read(ctx, cmd.TemplateID)
 		if err != nil {

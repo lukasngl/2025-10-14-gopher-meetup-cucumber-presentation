@@ -6,8 +6,8 @@ import (
 	"example.invalid/domain/template"
 )
 
-// GetTemplateDetailsQuery represents a query for template details.
-type GetTemplateDetailsQuery struct {
+// GetTemplateDetails represents a query for template details.
+type GetTemplateDetails struct {
 	TemplateID template.ID
 }
 
@@ -27,11 +27,13 @@ type DimensionDetails struct {
 }
 
 // GetTemplateDetailsHandler handles the GetTemplateDetails query.
-type GetTemplateDetailsHandler = QueryHandler[GetTemplateDetailsQuery, TemplateDetailsResult]
+type GetTemplateDetailsHandler = QueryHandler[GetTemplateDetails, TemplateDetailsResult]
 
 // NewGetTemplateDetailsHandler creates a new handler for querying template details.
-func NewGetTemplateDetailsHandler(repo template.Repository) QueryHandler[GetTemplateDetailsQuery, TemplateDetailsResult] {
-	return func(ctx context.Context, qry GetTemplateDetailsQuery) (TemplateDetailsResult, error) {
+func NewGetTemplateDetailsHandler(
+	repo template.Repository,
+) QueryHandler[GetTemplateDetails, TemplateDetailsResult] {
+	return func(ctx context.Context, qry GetTemplateDetails) (TemplateDetailsResult, error) {
 		tmpl, err := repo.Read(ctx, qry.TemplateID)
 		if err != nil {
 			return TemplateDetailsResult{}, err

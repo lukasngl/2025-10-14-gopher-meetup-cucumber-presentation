@@ -26,6 +26,7 @@ var featureSpec = flag.String(
 func TestHandler(t *testing.T) {
 	suite := godog.TestSuite{
 		TestSuiteInitializer: testsuite.InitHandlerTest,
+		ScenarioInitializer:  testsuite.InitializeSteps,
 		Options: &godog.Options{
 			Format:   "pretty",
 			Paths:    strings.Split(*featureSpec, ","),
@@ -47,7 +48,10 @@ func TestIntegration(t *testing.T) {
 	}
 
 	suite := godog.TestSuite{
-		TestSuiteInitializer: testsuite.InitIntegrationTest,
+		TestSuiteInitializer: func(tsc *godog.TestSuiteContext) {
+			testsuite.InitIntegrationTest(t, tsc)
+		},
+		ScenarioInitializer: testsuite.InitializeSteps,
 		Options: &godog.Options{
 			Format:   "pretty",
 			Paths:    strings.Split(*featureSpec, ","),
