@@ -25,12 +25,15 @@
   )
 
   set text(
-    font: "Fira Sans",
+    font: (
+      "Fira Sans",
+      "Noto Sans",
+    ),
     size: 18pt,
   )
 
   // Setup code highlighting
-  show raw: set text(font: "Fira Code", size: 16pt)
+  show raw: set text(font: "Fira Mono", size: 14pt)
   show: cucumber-syntax
   show raw: it => {
     show regex("pin\d+"): it => pin(eval(it.text.slice(3)))
@@ -45,6 +48,7 @@
   // show heading.where(level: 1): set block(spacing: 30pt)
 
   show heading.where(level: 2): set text(fill: meko_grey)
+  show heading.where(level: 3): set text(fill: meko_grey, size: 20pt)
 
   set list(marker: text(fill: meko_green, sym.bullet), indent: 1em)
 
@@ -55,24 +59,27 @@
 }
 
 #let content-slide(title, body) = slide[
+  === #title
+
   #align(horizon)[
-    === #title
     #body
   ]
 ]
 
-#let title-slide(authors: [], title: [], extra: [], url: none) = slide[
+#let title-slide(
+  authors: [],
+  title: [],
+  extra: [],
+  url: none,
+  title-image: [],
+) = slide[
   #grid(
     columns: (1fr, 2fr),
     rows: (2fr, 1fr),
     gutter: 1em,
     grid.cell(
       rowspan: 2,
-      image(
-        "../assets/pickle-gophers_building_the_hannover_rathaus.png",
-        alt: "Pickle-Gophers building the Hannover Rathaus",
-        height: 100%,
-      ),
+      title-image,
     ),
     [
       #set align(horizon)

@@ -21,6 +21,11 @@
       Hannover Gophers, 14.10.2025
     ],
     url: "https://github.com/lukasngl/2025-10-14-gopher-meetup-cucumber-presentation",
+    title-image: image(
+      "../assets/pickle-gophers_building_the_hannover_rathaus.png",
+      alt: "Pickle-Gophers building the Hannover Rathaus",
+      height: 100%,
+    ),
   )
 
   #content-slide([Agenda])[
@@ -150,19 +155,9 @@
     ]
   ]
 
-  #section-slide([Die Realität])[
-    #align(horizon + center)[
-      #text(size: 1.2em)[
-        Probleme sind nur dornige Chancen \
-        #v(0.5em)
-        #text(size: 0.5em)[-- Deutschlands frechster Arbeitsloser]
-      ]
-    ]
-  ]
+  #section-slide([Die Realität])[ ]
 
-  #slide[
-    == Wer kennt das nicht?
-
+  #content-slide([Wer kennt das nicht?])[
     #set align(horizon + center)
     #set text(size: 20pt)
 
@@ -171,62 +166,21 @@
     Irgendwo in Jira... oder war's Confluence? \
     Oder in dem Teams-Chat von vor 3 Monaten?
 
-    #v(1em)
-    #box(height: 8em)[] // Placeholder space
-
-    // TODO: Add image
-  ]
-
-  #slide[
-    == Wer kennt das nicht?
-
-    #set align(horizon + center)
-    #set text(size: 20pt)
-
-    *Wo war nochmal die Spezifikation?*
-
-    Irgendwo in Jira... oder war's Confluence? \
-    Oder in dem Teams-Chat von vor 3 Monaten?
+    #show: later
 
     #v(1em)
-
     *Was macht die Funktion nochmal?*
 
     500 Zeilen, 8 verschachtelte Ifs, keine Kommentare \
     Edge Cases? Das finden wir schon raus... irgendwann
 
-    #v(1em)
-    #box(height: 2em)[] // Placeholder space
-
-    // TODO: Add image
-  ]
-
-  #slide[
-    == Wer kennt das nicht?
-
-    #set align(horizon + center)
-    #set text(size: 20pt)
-
-    *Wo war nochmal die Spezifikation?*
-
-    Irgendwo in Jira... oder war's Confluence? \
-    Oder in dem Teams-Chat von vor 3 Monaten?
-
-    #v(1em)
-
-    *Was macht die Methode nochmal?*
-
-    500 Zeilen, 8 verschachtelte Ifs, keine Kommentare \
-    Edge Cases? Das finden wir schon raus... irgendwann
-
+    #show: later
     #v(1em)
 
     *Ist das durch Tests abgedeckt?*
   ]
 
-  #slide[
-    == Die Folgen
-
+  #content-slide([Die Folgen])[
     #set align(horizon + center)
     #set text(size: 22pt)
 
@@ -249,38 +203,34 @@
     // TODO: Add image
   ]
 
-  #slide[
-    == Was wäre, wenn...
-
+  #content-slide([Was wäre, wenn...])[
     #set align(horizon + center)
     #set text(size: 18pt)
 
-    ...wir eine #text(weight: "bold")[gemeinsame Single Source of Truth] hätten?
+    ...wir eine *gemeinsame Single Source of Truth* hätten?
 
     #text(size: 15pt, style: "italic")[Spezifikation = Tests = Dokumentation]
 
     #v(0.5em)
 
-    ...unsere Dokumentation #text(weight: "bold")[immer aktuell] bliebe?
+    ...unsere Dokumentation *immer aktuell* bliebe?
 
     #text(size: 15pt, style: "italic")[Veraltete Doku würde sofort auffallen]
 
     #v(0.5em)
 
-    ...wir uns auf #text(weight: "bold")[Geschäftslogik statt Implementierung] fokussieren?
+    ...wir uns auf *Geschäftslogik statt Implementierung* fokussieren?
 
     #text(size: 15pt, style: "italic")[Was, nicht Wie]
 
     #v(0.5em)
 
-    ...#text(weight: "bold")[alle im Team] mitreden könnten?
+    ...*alle im Team* mitreden könnten?
 
     #text(size: 15pt, style: "italic")[Auch ohne Programmierkenntnisse]
   ]
 
-  #slide[
-    == Das Rezept-Prinzip
-
+  #content-slide([Das Rezept-Prinzip])[
     #set align(horizon + center)
     #set text(size: 19pt)
 
@@ -307,19 +257,19 @@
       [
         *Developer* 🧑‍💻 \
         _"Ich brauche eine klare, \
-        stabile Spezifikation"_
+          stabile Spezifikation"_
 
         #v(1em)
 
         *QA* 🧪 \
         _"Ich will nachprüfbare \
-        Validierung"_
+          Validierung"_
 
         #v(1em)
 
         *Stakeholder* 👔 \
         _"Ich will verstehen, \
-        was gebaut wird"_
+          was gebaut wird"_
       ],
       align(horizon)[
         *BDD (Cucumber) löst das:* \
@@ -340,7 +290,7 @@
         ✅ Entwickler: Klare Spec \
         ✅ QA: Automatisierter Test \
         ✅ Stakeholder: Lesbar
-      ]
+      ],
     )
   ]
 
@@ -367,28 +317,36 @@
   ]
 
   #content-slide([Key Features])[
-    #let emph-on(on, body) = {
-      only((until: on - 1), body)
+    #let emph-on(on, of, body) = {
+      if on > 1 { only((until: on - 1), body) }
       only(on, underline(emph(body)))
-      only((beginning: on + 1), emph(body))
+      if on < of { only((beginning: on + 1), emph(body)) }
     }
 
-    #show: set align(horizon)
+    #show: set align(center + horizon)
 
     #toolbox.side-by-side(
       columns: (60%, 40%),
-      lib.item-by-item()[
-        - Lebendige Dokumentation
-          - Spezifikation werden automatisch getestet
-        - Natürliche Sprache
-          - über 80 Sprachen
-        - Methoden die Stakeholder in den Entwicklungsprozess einbindet
+      [
+        *Lebendige Dokumentation* \
+        Spezifikation werden automatisch getestet
+
+        #v(1em)
+
+        #show: later
+        *Natürliche Sprache* \
+        über 80 Sprachen
+
+        #v(1em)
+
+        #show: later
+        *Methoden die Stakeholder in den Entwicklungsprozess einbindet*
       ],
 
       align(horizon + center)[
         #text(style: "italic", size: 0.9em)[
-          "Cucumber is a tool for running #emph-on(1)[automated acceptance tests], #emph-on(2)[written in plain language].
-          Because they're written in plain language, they #emph-on(3)[can be read by anyone on your team],
+          "Cucumber is a tool for running #emph-on(1, 3)[automated acceptance tests], #emph-on(2, 3)[written in plain language].
+          Because they're written in plain language, they #emph-on(3, 3)[can be read by anyone on your team],
           improving communication, collaboration and trust."
         ]
 
@@ -401,7 +359,7 @@
     )
   ]
 
-  #section-slide([Beispiel: Feature spezifieren und implementieren])[
+  #section-slide([Hands-On: Feature spezifieren und implementieren])[
     #align(left)[
       - ohne cucumber:
         - anforderung in jira
@@ -412,9 +370,7 @@
     ]
   ]
 
-  #slide[
-    == Wie spezifiere ich eine Feature?
-
+  #content-slide([Wie spezifiere ich eine Feature?])[
     #set align(horizon)
 
     #reveal-code(lines: (1, 4, 11), full: true)[```feature
@@ -476,9 +432,7 @@
 
   ]
 
-  #slide[
-    == My English is not the yellow of the egg
-
+  #content-slide([My English is not the yellow of the egg])[
     #set align(horizon)
 
     ```feature
@@ -511,17 +465,13 @@
     Wie kriege ich das jetzt zum Laufen?
   ]
 
-  #slide[
-    === Godog
-
+  #content-slide([Godog])[
     - bla
     - bluh
     - blups
   ]
 
-  #slide[
-    === Schritte implementieren
-
+  #content-slide([Schritte implementieren])[
     - Schritte entsprechen einer Go Funktion
 
     ```go
@@ -534,8 +484,7 @@
     ```
   ]
 
-  #slide[
-    === Background
+  #content-slide([Background])[
     Schritte die vor jedem Szenario ausgeführt werden:
     #toolbox.side-by-side(
       [
@@ -570,8 +519,7 @@
     )
   ]
 
-  #slide[
-    === Szenario Outline
+  #content-slide([Szenario Outline])[
     Den selben Test/Szenario mit unterschiedlichen Parametern ausführen:
     #toolbox.side-by-side(
       [
@@ -639,7 +587,7 @@
         - Automatische Verifikation
         - Leicht validierbar
         - Living Documentation
-      ]
+      ],
     )
 
     #v(1.5em)
@@ -715,7 +663,7 @@
       ],
       align(horizon + center)[
         #image("../assets/cucumber.jpg", width: 100%)
-      ]
+      ],
     )
   ]
 
@@ -734,7 +682,7 @@
       ],
       align(horizon + center)[
         #image("../assets/gherkin.jpg", width: 100%)
-      ]
+      ],
     )
   ]
 
@@ -753,8 +701,10 @@
       dy: -1em,
       text(size: 10pt, style: "italic")[
         Bildquelle:
-        #link("https://www.linkedin.com/posts/davidavpereira_fixing-production-bugs-is-640x-more-expensive-activity-7286021036976857089-UHmI/")[David Pereira]
-      ]
+        #link(
+          "https://www.linkedin.com/posts/davidavpereira_fixing-production-bugs-is-640x-more-expensive-activity-7286021036976857089-UHmI/",
+        )[David Pereira]
+      ],
     )
   ]
 
@@ -771,7 +721,7 @@
       text(size: 10pt, style: "italic")[
         Quelle:
         #link("https://de.wikipedia.org/wiki/V-Modell")[Wikipedia "V-Modell"]
-      ]
+      ],
     )
   ]
 
@@ -836,7 +786,7 @@
         - Natural Language (Gherkin)
         - Feature-Files
         - Für alle Stakeholder
-      ]
+      ],
     )
   ]
 
@@ -908,7 +858,7 @@
         - Tiefe Einblicke in Risiken
         - KI-Integration in BDD
         - Systematische Coverage
-      ]
+      ],
     )
 
     #v(1.5em)
@@ -925,10 +875,12 @@
       dx: -1em,
       dy: -1em,
       text(size: 11pt)[
-        #link("https://www.meetup.com/de-DE/ict-improve/events/310953461/?eventOrigin=group_similar_events")[
+        #link(
+          "https://www.meetup.com/de-DE/ict-improve/events/310953461/?eventOrigin=group_similar_events",
+        )[
           → "Gherkin is dead, long live BDD?", 21.10. in Eindhoven
         ]
-      ]
+      ],
     )
   ]
 

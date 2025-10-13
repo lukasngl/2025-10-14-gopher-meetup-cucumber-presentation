@@ -37,6 +37,7 @@
             # keep-sorted start
             pkgs.fira
             pkgs.font-awesome
+            pkgs.noto-fonts
             # keep-sorted end
           ];
         };
