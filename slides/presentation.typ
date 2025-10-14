@@ -41,12 +41,24 @@
       Oder in dem Teams-Chat von vor 3 Monaten?
     ]
 
-    #only((1))[
+    #only(1)[
       // Floating logos
-      #place(top + left, dx: 0%, dy: 20%, rotate(-15deg, image("../assets/jira.svg", height: 2em)))
-      #place(top + right, dx: -5%, dy: 15%, rotate(12deg, image("../assets/confluence.svg", height: 2em)))
-      #place(top + left, dx: 5%, dy: 45%, rotate(8deg, image("../assets/teams.svg", height: 2em)))
-      #place(top + right, dx: 5%, dy: 40%, rotate(-10deg, image("../assets/slack.svg", height: 2em)))
+      #place(top + left, dx: 0%, dy: 20%, rotate(-15deg, image(
+        "../assets/jira.svg",
+        height: 2em,
+      )))
+      #place(top + right, dx: -5%, dy: 15%, rotate(12deg, image(
+        "../assets/confluence.svg",
+        height: 2em,
+      )))
+      #place(top + left, dx: 5%, dy: 45%, rotate(8deg, image(
+        "../assets/teams.svg",
+        height: 2em,
+      )))
+      #place(top + right, dx: 5%, dy: 40%, rotate(-10deg, image(
+        "../assets/slack.svg",
+        height: 2em,
+      )))
     ]
 
     #uncover((beginning: 2))[
@@ -57,12 +69,24 @@
       Edge Cases? Das finden wir schon raus... irgendwann
     ]
 
-    #only((2))[
+    #only(2)[
       // Floating question marks
-      #place(top + left, dx: 0%, dy: 45%, rotate(-15deg, text(size: 3em, fill: meko_grey)[?]))
-      #place(top + right, dx: -5%, dy: 45%, rotate(12deg, text(size: 3em, fill: meko_grey)[\#]))
-      #place(top + left, dx: 5%, dy: 75%, rotate(8deg, text(size: 3em, fill: meko_grey)[\@]))
-      #place(top + right, dx: 5%, dy: 70%, rotate(-10deg, text(size: 3em, fill: meko_grey)[?]))
+      #place(top + left, dx: 0%, dy: 45%, rotate(-15deg, text(
+        size: 3em,
+        fill: meko_grey,
+      )[?]))
+      #place(top + right, dx: -5%, dy: 45%, rotate(12deg, text(
+        size: 3em,
+        fill: meko_grey,
+      )[\#]))
+      #place(top + left, dx: 5%, dy: 75%, rotate(8deg, text(
+        size: 3em,
+        fill: meko_grey,
+      )[\@]))
+      #place(top + right, dx: 5%, dy: 70%, rotate(-10deg, text(
+        size: 3em,
+        fill: meko_grey,
+      )[?]))
     ]
 
     #uncover((beginning: 3))[
@@ -142,7 +166,10 @@
     *BDD – Behavior Driven Development*.
 
     // Floating GopherCucumber
-    #place(top + right, dx: 4%, dy: 20%, image("../assets/GopherCucumber.svg", height: 4em))
+    #place(top + right, dx: 4%, dy: 20%, image(
+      "../assets/GopherCucumber.svg",
+      height: 4em,
+    ))
   ]
 
   #content-slide([Die gemeinsame Sprache])[
@@ -150,19 +177,19 @@
       [
         *Developer* 🧑‍💻 \
         _"Ich brauche eine klare, \
-          stabile Spezifikation"_
+        stabile Spezifikation"_
 
         #v(1em)
 
         *QA* 🧪 \
         _"Ich will nachprüfbare \
-          Validierung"_
+        Validierung"_
 
         #v(1em)
 
         *Stakeholder* 👔 \
         _"Ich will verstehen, \
-          was gebaut wird"_
+        was gebaut wird"_
       ],
       align(horizon)[
         *BDD (Cucumber) löst das:* \
@@ -209,7 +236,10 @@
     ]
 
     // Floating GopherGherkin
-    #place(top + right, dx: 0%, dy: 18%, image("../assets/GopherGherkin.png", height: 6em))
+    #place(top + right, dx: 0%, dy: 18%, image(
+      "../assets/GopherGherkin.png",
+      height: 6em,
+    ))
   ]
 
   #content-slide([Key Features])[
@@ -554,10 +584,13 @@
     #image("../assets/godog-run.png", height: 1fr)
 
     // Floating GopherHappy
-    #place(horizon + right, dx: 5%, image("../assets/GopherHappy.png", height: 8em))
+    #place(horizon + right, dx: 5%, image(
+      "../assets/GopherHappy.png",
+      height: 8em,
+    ))
   ]
 
-  #section-slide([Rezepte])[]
+  #section-slide([Gherkin Highlights])[]
 
   #content-slide([Background])[
     Schritte die vor jedem Szenario ausgeführt werden:
@@ -688,14 +721,91 @@
     )
   ]
 
-  #section-slide([Tools])[
-    - godog: Cucumber Test-Framework für Go
-    - ghokin: formatter für gherkin files in go
-    - godogen: colocate step patterns with implementation
-    - godotils: table utilities for godog
+  #section-slide[Tools die wir nutzen][ ]
+
+  #content-slide[Ghokin][
+    #toolbox.side-by-side(
+      [
+        *Formatter für Gherkin files* \
+        #link("https://github.com/antham/ghokin")
+        - In go geschrieben
+        - Kann DocStrings formatieren
+      ],
+      [
+        #align(center)[
+          ```feature
+          Scenario: A scenario to test
+            Given a thing
+            # @json
+            """
+            {
+              "test": "test"
+            }
+            """
+          ```
+        ],
+      ],
+    )
+
   ]
 
-  #section-slide([Fazit?])[
+  #content-slide[Godotils][
+    #toolbox.side-by-side(
+      [
+        *Ergonomische API für godog.Table* \
+        #link("https://github.com/lukasngl/godotils")
+        - (Shamelessss Plug)
+      ],
+      [
+        #align(center)[
+          ```go
+          type Row struct {
+              Name  string  `table:"name"`
+              Age   int     `table:"age"`
+          }
+
+          table := godotils.Table([][]string{
+              {"name", "age"},
+              {"Alice", "30", "95.5"},
+              {"Bob", "25", "87.3"},
+          })
+
+          var rows []Row
+          err := godotils.UnmarshalTable(table, &rows)
+          ```
+        ],
+      ],
+    )
+
+  ]
+
+  #content-slide[Godotils][
+    #toolbox.side-by-side(
+      [
+        *Ergonomische API für godog.Table* \
+        #link("https://github.com/lukasngl/godogen")
+        - Step Patterns als directive direkt an der Funktion
+        - Inklusive Linter
+        - `InitializeSteps` wird via code-gen erstellt
+        - Kann (noch) keine Methoden Steps
+          - State muss mittels `context.Context` durchgeschleift werden
+
+      ],
+      [
+        #align(center)[
+          ```go
+          //godog:step ^I eat (\d+)$
+          func iEat(num int) {
+            // ...
+          }
+          ```
+        ],
+      ],
+    )
+
+  ]
+
+  #section-slide([Fazit])[
   ]
 
   #content-slide([Warum überhaupt testen?])[
@@ -787,12 +897,10 @@
       ]
     ]
 
-    #place(bottom + left, dx: 0%, dy: 6%, 
-      text(size: 11pt)[
-          Quelle: #link("https://dannorth.net/blog/introducing-bdd/")[Dan North - Introducing BDD]
-      ]    
-    )
-    
+    #place(bottom + left, dx: 0%, dy: 6%, text(size: 11pt)[
+      Quelle: #link("https://dannorth.net/blog/introducing-bdd/")[Dan North - Introducing BDD]
+    ])
+
   ]
 
   #content-slide([Wie war das nochmal mit den Gurken?])[
