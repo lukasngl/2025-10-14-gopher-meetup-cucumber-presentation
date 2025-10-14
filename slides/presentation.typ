@@ -257,16 +257,18 @@
         *Lebendige Dokumentation* \
         Spezifikation werden automatisch getestet
 
-        #v(1em)
+        #uncover(2)[
+          #v(1em)
 
-        #show: later
-        *Natürliche Sprache* \
-        über 80 Sprachen
+          *Natürliche Sprache* \
+          über 80 Sprachen
+        ]
+        #uncover(3)[
 
-        #v(1em)
+          #v(1em)
 
-        #show: later
-        *Methoden die Stakeholder in den Entwicklungsprozess einbindet*
+          *Methoden die Stakeholder in den Entwicklungsprozess einbindet*
+        ]
       ],
 
       align(horizon + center)[
