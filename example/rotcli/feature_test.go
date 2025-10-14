@@ -27,31 +27,24 @@ var featureSpec = flag.String(
 
 func TestFeature(t *testing.T) {
 	suite := godog.TestSuite{
-		TestSuiteInitializer: func(tsc *godog.TestSuiteContext) {
-			type ctxKey struct{}
+		ScenarioInitializer: func(sc *godog.ScenarioContext) {
+			var output *bytes.Buffer
 
-			tsc.ScenarioContext().When(
+			sc.When(
 				`^I run rotcli with shift value (\d+) and input:$`,
-				func(ctx context.Context, rot int, input *godog.DocString) (context.Context, error) {
-					output := bytes.NewBuffer(nil)
-
-					err := cmd.Run(
+				func(rot int, input *godog.DocString) error {
+					return cmd.Run(
 						bytes.NewReader([]byte(input.Content)),
 						output,
 						rot,
 					)
-					if err != nil {
-						return ctx, err
-					}
-
-					return context.WithValue(ctx, ctxKey{}, output.Bytes()), nil
 				},
 			)
 
-			tsc.ScenarioContext().Then(
+			sc.Then(
 				"^the output should be:$",
 				func(ctx context.Context, input *godog.DocString) error {
-					actual := string(ctx.Value(ctxKey{}).([]byte))
+					actual := output.String()
 					expected := input.Content
 					if diff := cmp.Diff(actual, expected); diff != "" {
 						return fmt.Errorf("output mismatch: %s", diff)

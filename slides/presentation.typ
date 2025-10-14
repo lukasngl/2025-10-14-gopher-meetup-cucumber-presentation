@@ -14,8 +14,8 @@
       Wenn Gurken-Code plötzlich Spaß macht!
     ],
     authors: [
-      Christian Budde #link("")[#fa-github() cwbudde] \
-      Lukas Nagel #link("")[#fa-github() lukasngl] \
+      Christian Budde #link("https://github.com/cwbudde")[#fa-github() cwbudde] \
+      Lukas Nagel #link("https://github.com/cwbudde")[#fa-github() lukasngl] \
     ],
     extra: [
       Hannover Gophers, 14.10.2025
@@ -611,14 +611,10 @@
           id string,
           table *godog.Table,
         ) {
-          var dimensions []struct{
-            Dimension string  `table:"dimension"`
-            Nominal   float64 `table:"Nomininal"`
-            Upper     float64 `table:"Obere T,optional"`
-            Lower     float64 `table:"Untere T,optional"`
+          for _, row := range table.Rows[1:] {
+            // row.Cells[0] -> Dimension
+            // row.Cells[2] -> Nominal
           }
-
-           _ := godotils.UnmarhsalTable(table, &dimensions)
         }
         ```
       ],
@@ -938,7 +934,7 @@
           Kommunikationsproblem \
           zwischen Teams
         ]
-      ]
+      ],
     )
   ]
 
