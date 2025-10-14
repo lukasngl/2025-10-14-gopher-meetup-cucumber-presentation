@@ -34,13 +34,22 @@
     #set align(horizon + center)
     #set text(size: 20pt)
 
-    *Wo war nochmal die Spezifikation?*
+    #uncover((beginning: 1))[
+      *Wo war nochmal die Spezifikation?*
 
-    Irgendwo in Jira... oder war's Confluence? \
-    Oder in dem Teams-Chat von vor 3 Monaten?
+      Irgendwo in Jira... oder war's Confluence? \
+      Oder in dem Teams-Chat von vor 3 Monaten?
+    ]
 
+    #only((1))[
+      // Floating logos
+      #place(top + left, dx: 0%, dy: 20%, rotate(-15deg, image("../assets/jira.svg", height: 2em)))
+      #place(top + right, dx: -5%, dy: 15%, rotate(12deg, image("../assets/confluence.svg", height: 2em)))
+      #place(top + left, dx: 5%, dy: 45%, rotate(8deg, image("../assets/teams.svg", height: 2em)))
+      #place(top + right, dx: 5%, dy: 40%, rotate(-10deg, image("../assets/slack.svg", height: 2em)))
+    ]
 
-    #uncover(1)[
+    #uncover((beginning: 2))[
       #v(1em)
       *Was macht die Funktion nochmal?*
 
@@ -48,11 +57,19 @@
       Edge Cases? Das finden wir schon raus... irgendwann
     ]
 
-    #uncover(2)[
-      #v(1em)
+    #only((2))[
+      // Floating question marks
+      #place(top + left, dx: 0%, dy: 45%, rotate(-15deg, text(size: 3em, fill: meko_grey)[?]))
+      #place(top + right, dx: -5%, dy: 45%, rotate(12deg, text(size: 3em, fill: meko_grey)[\#]))
+      #place(top + left, dx: 5%, dy: 75%, rotate(8deg, text(size: 3em, fill: meko_grey)[\@]))
+      #place(top + right, dx: 5%, dy: 70%, rotate(-10deg, text(size: 3em, fill: meko_grey)[?]))
     ]
 
-    *Ist das durch Tests abgedeckt?*
+    #uncover((beginning: 3))[
+      #v(1em)
+
+      *Ist das durch Tests abgedeckt?*
+    ]
   ]
 
   #content-slide([Die Folgen])[
@@ -123,6 +140,9 @@
 
     In der Softwareentwicklung nennt man dieses Prinzip \
     *BDD – Behavior Driven Development*.
+
+    // Floating GopherCucumber
+    #place(top + right, dx: 4%, dy: 20%, image("../assets/GopherCucumber.svg", height: 4em))
   ]
 
   #content-slide([Die gemeinsame Sprache])[
@@ -187,6 +207,9 @@
         -- #link("https://cucumber.io/")[cucumber.io]
       ]
     ]
+
+    // Floating GopherGherkin
+    #place(top + right, dx: 0%, dy: 18%, image("../assets/GopherGherkin.png", height: 6em))
   ]
 
   #content-slide([Key Features])[
