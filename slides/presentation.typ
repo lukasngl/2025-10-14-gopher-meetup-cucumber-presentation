@@ -552,6 +552,9 @@
   #content-slide([Run the Test])[
     #set align(horizon + center)
     #image("../assets/godog-run.png", height: 1fr)
+
+    // Floating GopherHappy
+    #place(horizon + right, dx: 5%, image("../assets/GopherHappy.png", height: 8em))
   ]
 
   #section-slide([Rezepte])[]
@@ -768,7 +771,7 @@
     #v(0.5em)
 
     *Die Entwicklung:*
-    - Entdeckung von "agiledox" → Testmethoden als lesbare Sätze
+    - Testmethoden als lesbare Sätze
     - Namenskonvention: Methoden beginnen mit "should"
     - Paradigmenwechsel: Von "Tests" zu "Verhalten" (Behaviour)
     - Entwicklung von JBehave als JUnit-Ersatz
@@ -784,11 +787,12 @@
       ]
     ]
 
-    #v(0.5em)
-
-    #text(size: 11pt)[
-      Quelle: #link("https://dannorth.net/blog/introducing-bdd/")[Dan North - Introducing BDD]
-    ]
+    #place(bottom + left, dx: 0%, dy: 6%, 
+      text(size: 11pt)[
+          Quelle: #link("https://dannorth.net/blog/introducing-bdd/")[Dan North - Introducing BDD]
+      ]    
+    )
+    
   ]
 
   #content-slide([Wie war das nochmal mit den Gurken?])[
