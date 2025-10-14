@@ -328,6 +328,37 @@
     )
   ]
 
+  #content-slide([Beschreiben des Verhaltens durch Beispiele])[
+    #toolbox.side-by-side(
+      columns: (1fr, auto),
+      [
+        #set align(center)
+
+        *Akzeptanzkriterium*
+        #v(0.5em)
+
+        _"Maßhaltig wenn alle Messungen innerhalb der Toleranz"_
+
+        #v(1.5em)
+
+        #align(center)[*Beispiel*]
+        #v(0.5em)
+
+        Ich hab eine Messvorlage "Stent-Typ-A" mit einem Durchmesser von 3.5mm ± 0.1mm.
+
+        Wenn beim ich den Durchmesser 3.7mm messe dann ist das Teil außerhalb
+        der Toleranz und somit nicht maßhaltig.
+
+        #v(1em)
+
+        #text(size: 0.85em, style: "italic")[
+          → Das Beispiel beschreibt konkret, wie sich das System _verhalten_ soll
+        ]
+      ],
+      [ #image("../assets/steak-holder.png", height: 5cm) ],
+    )
+  ]
+
   #content-slide([Spezifikation in Gherkin])[
     #toolbox.side-by-side(
       columns: (auto, 1fr),
