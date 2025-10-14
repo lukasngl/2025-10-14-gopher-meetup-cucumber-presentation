@@ -915,6 +915,26 @@
 
   ]
 
+  #slide[
+    #set align(horizon + center)
+
+    #text(size: 2.5em, weight: "bold")[
+      Danke fürs Zuhören!
+    ]
+
+    #link("https://github.com/lukasngl/2025-10-14-gopher-meetup-cucumber-presentation/releases/download/latest/handout.pdf")[
+      #image("../assets/DownTheSlide.png", height: 50%)
+    ]
+
+    #v(0.5em)
+
+    #text(size: 1.5em)[
+      #link("https://github.com/lukasngl/2025-10-14-gopher-meetup-cucumber-presentation/releases/download/latest/handout.pdf")[
+        → Slides herunterladen
+      ]
+    ]
+  ]
+
   #section-slide([Appendix])[
     #align(horizon + center)[
       #text(size: 1.2em)[

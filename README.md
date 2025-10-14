@@ -6,7 +6,11 @@ A presentation about Behavior-Driven Development (BDD) and Cucumber testing in G
 
 **Authors:** Christian Budde ([@cwbudde](https://github.com/cwbudde)) & Lukas Nagel ([@lukasngl](https://github.com/lukasngl))
 
-[Download the slides](https://github.com/lukasngl/2025-10-14-gopher-meetup-cucumber-presentation/releases/download/latest/handout.pdf)
+## Download the Slides
+
+[![Download Slides](./assets/DownTheSlide.png)](https://github.com/lukasngl/2025-10-14-gopher-meetup-cucumber-presentation/releases/download/latest/handout.pdf)
+
+[Download the slides (PDF)](https://github.com/lukasngl/2025-10-14-gopher-meetup-cucumber-presentation/releases/download/latest/handout.pdf)
 
 ## Overview
 
