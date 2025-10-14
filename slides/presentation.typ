@@ -836,7 +836,7 @@
 
   ]
 
-  #content-slide[Godotils][
+  #content-slide[Godogen][
     #toolbox.side-by-side(
       [
         *Ergonomische API für godog.Table* \
