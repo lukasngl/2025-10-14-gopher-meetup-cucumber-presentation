@@ -583,6 +583,30 @@
     )
   ]
 
+  #content-slide([Implementierung mit Godog: Steps definieren])[
+
+    - Capture Groups des Patterns enstprichen Parametern
+    - Optional: erstes Argument `context.Context`
+    - Optional: letztes Argument `*gogog.Table` oder `*gogog.DocString`
+    - Optional: `context.Context` als return value, wird für die nächsten Steps genutzt
+    - Optional: `error` als return value -> Step schlägt fehl
+
+    #toolbox.side-by-side(
+      columns: (1fr, auto),
+      [
+        ```go
+          // `^Messvorlage "([^"]*)" mit Dimensionen existiert:$`
+        func givenTemplateExists(
+            context.Context,
+            templateID string,
+            table *godog.Table,
+        )
+        ```
+      ],
+      [ #image("../assets/godog.png", height: 5cm) ],
+    )
+  ]
+
   #content-slide([Test Suite ausführen])[
     #toolbox.side-by-side(
       columns: (1fr, auto),
