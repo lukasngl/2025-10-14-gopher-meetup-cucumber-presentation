@@ -1,6 +1,6 @@
 # Wenn Gurken-Code plötzlich Spaß macht!
 
-![Pickle Gopher](./assets/pickle-gopher.png)
+<img src="./assets/pickle-gopher.png" alt="Pickle Gopher" height="200px">
 
 A presentation about Behavior-Driven Development (BDD) and Cucumber testing in Go, presented at Hannover Gophers on October 14, 2025.
 
@@ -8,7 +8,7 @@ A presentation about Behavior-Driven Development (BDD) and Cucumber testing in G
 
 ## Download the Slides
 
-[![Download Slides](./assets/DownTheSlide.png)](https://github.com/lukasngl/2025-10-14-gopher-meetup-cucumber-presentation/releases/download/latest/handout.pdf)
+<a href="https://github.com/lukasngl/2025-10-14-gopher-meetup-cucumber-presentation/releases/download/latest/handout.pdf"><img src="./assets/DownTheSlide.png" alt="Download Slides" height="200px"></a>
 
 [Download the slides (PDF)](https://github.com/lukasngl/2025-10-14-gopher-meetup-cucumber-presentation/releases/download/latest/handout.pdf)
 
@@ -28,6 +28,7 @@ This presentation introduces Behavior-Driven Development (BDD) using Cucumber/Go
 ### The Solution: BDD with Cucumber
 
 **Single Source of Truth:**
+
 - Specification = Tests = Documentation
 - Always up-to-date documentation
 - Focus on business logic, not implementation
@@ -52,6 +53,7 @@ Just like a recipe describes ingredients, steps, and expected outcome!
 **For Stakeholders:** Human-readable requirements
 
 Example:
+
 ```feature
 Szenario: Stent-Dimension validieren
   Angenommen eine Messvorlage "MV-42"
@@ -65,6 +67,8 @@ Szenario: Stent-Dimension validieren
 - **Living Documentation**: Specifications are automatically tested
 - **Natural Language**: Supports 80+ languages via Gherkin syntax
 - **Stakeholder Integration**: Involves business stakeholders in the development process
+
+<img src="./assets/GopherHappy.png" alt="Gopher Happy" height="200px">
 
 ## Hands-On: From Stakeholder to Implementation
 
@@ -93,11 +97,13 @@ The presentation demonstrates the complete workflow:
 BDD and classical testing complement each other:
 
 **Before Coding:**
+
 - Clear, shared definition
 - Expectations readable by everyone
 - Early detection of misunderstandings
 
 **After Coding:**
+
 - Automatic verification
 - Easy validation
 - Living documentation
