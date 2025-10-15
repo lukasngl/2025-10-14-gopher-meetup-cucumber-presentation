@@ -839,21 +839,20 @@
   #content-slide[Godogen][
     #toolbox.side-by-side(
       [
-        *Ergonomische API für godog.Table* \
+        *Step Patterns als directive an der Funktion* \
         #link("https://github.com/lukasngl/godogen")
-        - Step Patterns als directive direkt an der Funktion
         - Inklusive Linter
         - `InitializeSteps` wird via code-gen erstellt
-        - Kann (noch) keine Methoden Steps
-          - State muss mittels `context.Context` durchgeschleift werden
+        - #strike()[Kann (noch) keine Methoden Steps] _Ab v0.3.0 verfügbar!_
+          - State #strike()[muss] kann mittels `context.Context` durchgeschleift werden
 
       ],
       [
         #align(center)[
           ```go
           //godog:step ^I eat (\d+)$
-          func iEat(num int) {
-            // ...
+          func (s*State) iEat(num int) {
+            s.available -= num
           }
           ```
         ],
@@ -922,14 +921,18 @@
       Danke fürs Zuhören!
     ]
 
-    #link("https://github.com/lukasngl/2025-10-14-gopher-meetup-cucumber-presentation/releases/download/latest/handout.pdf")[
+    #link(
+      "https://github.com/lukasngl/2025-10-14-gopher-meetup-cucumber-presentation/releases/download/latest/handout.pdf",
+    )[
       #image("../assets/DownTheSlide.png", height: 50%)
     ]
 
     #v(0.5em)
 
     #text(size: 1.5em)[
-      #link("https://github.com/lukasngl/2025-10-14-gopher-meetup-cucumber-presentation/releases/download/latest/handout.pdf")[
+      #link(
+        "https://github.com/lukasngl/2025-10-14-gopher-meetup-cucumber-presentation/releases/download/latest/handout.pdf",
+      )[
         → Slides herunterladen
       ]
     ]

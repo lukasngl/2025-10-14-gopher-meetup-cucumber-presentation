@@ -2,9 +2,6 @@
 package testsuite
 
 import (
-	"context"
-	"fmt"
-
 	"example.invalid/app"
 )
 
@@ -22,35 +19,3 @@ type SzenarioState struct {
 	// (only used in integration tests with database isolation)
 	scenarioPool any // *pgxpool.Pool, but we use any to avoid import cycle
 }
-
-// Get retrieves the scenario state from the context, panicking if not found.
-func Get(ctx context.Context) *SzenarioState {
-	state, err := TryGet(ctx)
-	if err != nil {
-		panic(err.Error())
-	}
-
-	return state
-}
-
-// WithSzenarioState adds the scenario state to the context.
-func WithSzenarioState(ctx context.Context, state *SzenarioState) context.Context {
-	return context.WithValue(ctx, scenarioCtxKey{}, state)
-}
-
-// TryGet attempts to retrieve the scenario state from the context, returning an error if not found.
-func TryGet(ctx context.Context) (*SzenarioState, error) {
-	value := ctx.Value(scenarioCtxKey{})
-	if value == nil {
-		return nil, fmt.Errorf("szenario state not set")
-	}
-
-	state, ok := value.(*SzenarioState)
-	if !ok {
-		return nil, fmt.Errorf("expected *SzenarioState but got %T", state)
-	}
-
-	return state, nil
-}
-
-type scenarioCtxKey struct{}

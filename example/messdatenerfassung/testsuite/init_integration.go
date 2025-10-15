@@ -17,50 +17,31 @@ import (
 	"github.com/testcontainers/testcontainers-go/modules/postgres"
 )
 
-// InitIntegrationTest initializes integration tests with a real PostgreSQL database.
-// Uses testcontainers to spin up a PostgreSQL instance for testing.
-// Each scenario gets its own isolated database created from a template.
-func InitIntegrationTest(t *testing.T, tsc *godog.TestSuiteContext) {
-	ctx := t.Context()
+// IntegrationTestSuite manages test infrastructure for integration tests with PostgreSQL.
+type IntegrationTestSuite struct {
+	t               *testing.T
+	testContainer   *postgres.PostgresContainer
+	adminPool       *pgxpool.Pool
+	scenarioCounter atomic.Int64
+}
 
-	var adminPool *pgxpool.Pool
-	var testContainer *postgres.PostgresContainer
-	var scenarioCounter atomic.Int64
+// NewIntegrationTestSuite creates a new integration test suite.
+func NewIntegrationTestSuite(t *testing.T) *IntegrationTestSuite {
+	return &IntegrationTestSuite{t: t}
+}
 
-	sc := tsc.ScenarioContext()
-
-	sc.Before(func(ctx context.Context, sc *godog.Scenario) (context.Context, error) {
-		// Generate unique database name for this scenario
-		scenarioPool, err := createSzenarioDB(
-			ctx,
-			testContainer,
-			adminPool,
-			scenarioCounter.Add(1),
-		)
-		if err != nil {
-			return ctx, fmt.Errorf("failed to create scenario pool: %w", err)
-		}
-
-		// Create SQL repositories with scenario-specific pool
-		templateRepo := templaterepo.New(scenarioPool)
-		measurementRepo := measurementrepo.New(scenarioPool, templateRepo)
-
-		state := &SzenarioState{
-			App:          app.New(templateRepo, measurementRepo),
-			scenarioPool: scenarioPool,
-		}
-
-		return WithSzenarioState(ctx, state), nil
-	})
+// InitSuite sets up the PostgreSQL testcontainer and creates the template database.
+func (s *IntegrationTestSuite) InitSuite(tsc *godog.TestSuiteContext) {
+	ctx := s.t.Context()
 
 	tsc.BeforeSuite(func() {
 		startCtx, cancel := context.WithTimeout(ctx, 30*time.Second)
 		defer cancel()
 
 		var err error
-		testContainer, adminPool, err = setupContainerAndTemplateDB(startCtx)
+		s.testContainer, s.adminPool, err = setupContainerAndTemplateDB(startCtx)
 		if err != nil {
-			t.Errorf("failed to setup test environment: %v", err)
+			s.t.Errorf("failed to setup test environment: %v", err)
 			return
 		}
 	})
@@ -68,18 +49,46 @@ func InitIntegrationTest(t *testing.T, tsc *godog.TestSuiteContext) {
 	tsc.AfterSuite(func() {
 		var errs []error
 
-		if adminPool != nil {
-			adminPool.Close()
+		if s.adminPool != nil {
+			s.adminPool.Close()
 		}
 
-		if testContainer != nil {
-			errs = append(errs, testContainer.Stop(ctx, nil))
+		if s.testContainer != nil {
+			errs = append(errs, s.testContainer.Stop(ctx, nil))
 		}
 
 		if err := errors.Join(errs...); err != nil {
-			t.Errorf("failed to cleanup: %v", err)
+			s.t.Errorf("failed to cleanup: %v", err)
 		}
 	})
+}
+
+// InitScenario creates a scenario-specific database and registers steps with the scenario state.
+func (s *IntegrationTestSuite) InitScenario(sc *godog.ScenarioContext) {
+	ctx := s.t.Context()
+
+	// Generate unique database name for this scenario
+	scenarioPool, err := createSzenarioDB(
+		ctx,
+		s.testContainer,
+		s.adminPool,
+		s.scenarioCounter.Add(1),
+	)
+	if err != nil {
+		s.t.Fatalf("failed to create scenario pool: %v", err)
+	}
+
+	// Create SQL repositories with scenario-specific pool
+	templateRepo := templaterepo.New(scenarioPool)
+	measurementRepo := measurementrepo.New(scenarioPool, templateRepo)
+
+	state := &SzenarioState{
+		App:          app.New(templateRepo, measurementRepo),
+		scenarioPool: scenarioPool,
+	}
+
+	// Register steps with this scenario's state
+	InitializeSteps(sc, state)
 }
 
 func createSzenarioDB(

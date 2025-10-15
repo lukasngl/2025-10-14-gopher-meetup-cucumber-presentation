@@ -25,8 +25,7 @@ var featureSpec = flag.String(
 // This provides fast feedback during development.
 func TestHandler(t *testing.T) {
 	suite := godog.TestSuite{
-		TestSuiteInitializer: testsuite.InitHandlerTest,
-		ScenarioInitializer:  testsuite.InitializeSteps,
+		ScenarioInitializer: testsuite.InitHandlerTest,
 		Options: &godog.Options{
 			Format:   "pretty",
 			Paths:    strings.Split(*featureSpec, ","),
@@ -47,11 +46,10 @@ func TestIntegration(t *testing.T) {
 		t.Skip("skipping integration tests in short mode")
 	}
 
+	integrationSuite := testsuite.NewIntegrationTestSuite(t)
 	suite := godog.TestSuite{
-		TestSuiteInitializer: func(tsc *godog.TestSuiteContext) {
-			testsuite.InitIntegrationTest(t, tsc)
-		},
-		ScenarioInitializer: testsuite.InitializeSteps,
+		TestSuiteInitializer: integrationSuite.InitSuite,
+		ScenarioInitializer:  integrationSuite.InitScenario,
 		Options: &godog.Options{
 			Format:   "pretty",
 			Paths:    strings.Split(*featureSpec, ","),

@@ -2,9 +2,12 @@ module example.invalid
 
 go 1.24.2
 
+tool github.com/lukasngl/godogen/cmd/godogen
+
 require (
 	github.com/cucumber/godog v0.15.1
 	github.com/jackc/pgx/v5 v5.7.6
+	github.com/lukasngl/godotils v0.1.0
 	github.com/testcontainers/testcontainers-go v0.39.0
 	github.com/testcontainers/testcontainers-go/modules/postgres v0.39.0
 )
@@ -44,8 +47,7 @@ require (
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
 	github.com/klauspost/compress v1.18.0 // indirect
 	github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0 // indirect
-	github.com/lukasngl/godogen v0.2.1 // indirect
-	github.com/lukasngl/godotils v0.1.0 // indirect
+	github.com/lukasngl/godogen v0.3.0 // indirect
 	github.com/magiconair/properties v1.8.10 // indirect
 	github.com/moby/docker-image-spec v1.3.1 // indirect
 	github.com/moby/go-archive v0.1.0 // indirect
@@ -82,5 +84,3 @@ require (
 	google.golang.org/protobuf v1.36.10 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-tool github.com/lukasngl/godogen/cmd/godogen
